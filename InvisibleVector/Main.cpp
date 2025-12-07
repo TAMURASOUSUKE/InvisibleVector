@@ -1,5 +1,10 @@
 #include "DxLib.h"
 
+
+/*
+	エントリーポイントを実装する
+*/
+
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -8,9 +13,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return -1;			// エラーが起きたら直ちに終了
 	}
 
-	DrawPixel(320, 240, GetColor(255, 255, 255));	// 点を打つ
 
-	WaitKey();				// キー入力待ち
+	// ゲームループの実装
+	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
+	{
+		
+	}
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 
