@@ -17,7 +17,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// ゲームループの実装
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
-		
+		DrawFormatString(20, 20, GetColor(255, 255, 255), "Hello World");
 	}
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
