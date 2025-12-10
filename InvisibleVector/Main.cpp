@@ -24,7 +24,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetWriteZBuffer3D(true); // zバッファへの書き込み許可
 	SetUseLighting(true); // ライトの有効化
 	SetCameraNearFar(0.1f, 1000.0f); // カメラのクリップ距離
-	SetCameraPositionAndTarget_UpVecY(VGet(320.0f, 240.0f, -10.0f), VGet(320.0f, 240.0f, 1.0f)); // カメラの位置と注視点の設定(位置途中視点はデフォルトです)
+	SetCameraPositionAndTarget_UpVecY(VGet(320.0f, 240.0f, -100.0f), VGet(320.0f, 240.0f, 1.0f)); // カメラの位置と注視点の設定(位置途中視点はデフォルトです)
 
 
 	// ------------------------------------------------------------------------
@@ -34,7 +34,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 
 
+		ClearDrawScreen();
+
 		DrawFormatString(20, 20, GetColor(255, 255, 255), "Hello_World_Debug");
+
+		DrawSphere3D(VGet(320.0f, 240.0f, 0.0f), 32, 32, GetColor(255, 0, 0), GetColor(255, 255, 255), true);
+
+		ScreenFlip();
 	}
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
