@@ -1,49 +1,19 @@
 #include "DxLib.h"
+#include "GameApp/GameApp.h"
 
-
-/*
-	エントリーポイントを実装する
-*/
-
-// プログラムは WinMain から始まります
+// [EN] Entry Point [JP] プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	SetGraphMode(1280, 720, 32); // 画面サイズの調整
-	ChangeWindowMode(true); // ウィンドウモードに設定
-	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
+	GameApp gameApp{};
+
+	// [EN] Initialize GameApp. Exit if failed. [JP] GameAppの初期化をする。失敗したら終了する
+	if (!gameApp.Initialize())
 	{
-		return -1;			// エラーが起きたら直ちに終了
+		return -1;
 	}
 
-	SetDrawScreen(DX_SCREEN_BACK); // 裏画面(バックバッファの設定)
+	// [EN] Start Game Loop. [JP] ゲームループの開始
+	gameApp.Run();
 
-	// 3D設定 -----------------------------------------------------------------
-
-	SetUseBackCulling(TRUE); // 裏画面の設定
-	SetUseZBuffer3D(true); // zバッファの有効化
-	SetWriteZBuffer3D(true); // zバッファへの書き込み許可
-	SetUseLighting(true); // ライトの有効化
-	SetCameraNearFar(0.1f, 1000.0f); // カメラのクリップ距離
-	SetCameraPositionAndTarget_UpVecY(VGet(320.0f, 240.0f, -100.0f), VGet(320.0f, 240.0f, 1.0f)); // カメラの位置と注視点の設定(位置途中視点はデフォルトです)
-
-
-	// ------------------------------------------------------------------------
-
-	// ゲームループの実装
-	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
-	{
-
-
-		ClearDrawScreen();
-
-		DrawFormatString(20, 20, GetColor(255, 255, 255), "Hello_World_Debug");
-
-		DrawSphere3D(VGet(320.0f, 240.0f, 0.0f), 32, 32, GetColor(255, 0, 0), GetColor(255, 255, 255), true);
-
-		ScreenFlip();
-	}
-
-	DxLib_End();				// ＤＸライブラリ使用の終了処理
-
-	return 0;				// ソフトの終了 
+	return 0; 
 }

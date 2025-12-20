@@ -13,10 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\GameApp">
+      <UniqueIdentifier>{c9b549c7-c76f-438c-b9a4-0e67381c5769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Constant">
+      <UniqueIdentifier>{5826f182-7a65-465d-be74-079a0cfea7e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="GameApp\GameApp.cpp">
+      <Filter>ソース ファイル\GameApp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameApp\GameApp.h">
+      <Filter>ソース ファイル\GameApp</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant\GameConstant.h">
+      <Filter>ソース ファイル\Constant</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
