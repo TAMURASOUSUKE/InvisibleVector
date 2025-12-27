@@ -25,6 +25,9 @@
     <Filter Include="ソース ファイル\Base">
       <UniqueIdentifier>{1422e3bc-6baf-4378-aa0b-c147fc18149f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\System\FPS">
+      <UniqueIdentifier>{ede05cb5-019a-4789-afe4-3c30fd286fb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -33,8 +36,11 @@
     <ClCompile Include="GameApp\GameApp.cpp">
       <Filter>ソース ファイル\GameApp</Filter>
     </ClCompile>
-    <ClCompile Include="System\FPS.cpp">
-      <Filter>ソース ファイル\System</Filter>
+    <ClCompile Include="System\FPS\FrameRateCounter.cpp">
+      <Filter>ソース ファイル\System\FPS</Filter>
+    </ClCompile>
+    <ClCompile Include="System\FPS\FrameRateLimiter.cpp">
+      <Filter>ソース ファイル\System\FPS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,14 +50,20 @@
     <ClInclude Include="Constant\GameConstant.h">
       <Filter>ソース ファイル\Constant</Filter>
     </ClInclude>
-    <ClInclude Include="System\FPS.h">
-      <Filter>ソース ファイル\System</Filter>
-    </ClInclude>
     <ClInclude Include="Base\ObjectBase.h">
       <Filter>ソース ファイル\Base</Filter>
     </ClInclude>
     <ClInclude Include="Constant\SystemConstant.h">
       <Filter>ソース ファイル\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="System\FPS\FrameRateCounter.h">
+      <Filter>ソース ファイル\System\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="System\FPS\FrameRateLimiter.h">
+      <Filter>ソース ファイル\System\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="System\FPS\FrameController.h">
+      <Filter>ソース ファイル\System\FPS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

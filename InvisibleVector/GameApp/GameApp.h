@@ -1,6 +1,6 @@
 #pragma once
 #include "SystemConstant.h"
-#include "../System/FPS.h"
+#include "../System/FPS/FrameController.h"
 
 
 /// <summary>
@@ -43,7 +43,7 @@ private:
 	void Draw();
 
 private:
-	FPS fps{DEBUG_FPS_POSITION_X, DEBUG_FPS_POSITION_Y };
+	FrameRateController frameController{ USE_FPS };
 	unsigned int white{0};
 	unsigned int red{0};
 };

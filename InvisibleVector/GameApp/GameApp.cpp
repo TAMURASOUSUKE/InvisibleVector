@@ -1,18 +1,22 @@
 #include "DxLib.h"
+#include <timeapi.h>
 #include "../Constant/GameConstant.h"
 #include "GameApp.h"
 
+#pragma comment(lib, "winmm.lib")
 
 // [EN] Constructor: Initialze variables [JP] コンストラクタ: 変数の初期化などを行う
 GameApp::GameApp()
 {
-
+	timeBeginPeriod(1);
 }
 
 
 // [EN] Finalize Dxlib resource. [JP] Dxlibの終了処理を行う
 GameApp::~GameApp()
 {
+	timeEndPeriod(1);
+
 	// [EN] Ensure Dxlib is shut down correctly.
 	DxLib_End();
 }
@@ -60,10 +64,12 @@ void GameApp::Run()
 	// [EN] Loop until ProcessMessage fails or Escape key is pressed. [JP] プロセスメッセージが失敗するかESCキーが押されるまでループする 
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
-		fps.Update();
+		frameController.BeginFrame();
+
 		Update();
 		Draw();
-		fps.Wait();
+
+		frameController.EndFrame();
 	}
 }
 
@@ -96,7 +102,12 @@ void GameApp::Draw()
 	SetUseZBuffer3D(false); // [EN] Disable Z-buffer for 2D drawing. [JP] 2D描画のためZバッファを無効化する
 	SetWriteZBuffer3D(false); // [EN] Disable writing to Z-buffer for 2D drawing. [JP] 2D描画のためZバッファへの書き込みを無効化する
 
-	fps.Draw();
+#ifdef _DEBUG
+
+	DrawFormatString(DEBUG_FPS_POSITION_X, DEBUG_FPS_POSITION_Y, GetColor(255, 255, 255), "%.1f", frameController.GetCurrentFPS());
+
+#endif // _DEBUG
+
 
 	ScreenFlip();
 }

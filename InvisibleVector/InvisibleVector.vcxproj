@@ -141,14 +141,17 @@
   <ItemGroup>
     <ClCompile Include="GameApp\GameApp.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="System\FPS.cpp" />
+    <ClCompile Include="System\FPS\FrameRateCounter.cpp" />
+    <ClCompile Include="System\FPS\FrameRateLimiter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\ObjectBase.h" />
     <ClInclude Include="Constant\GameConstant.h" />
     <ClInclude Include="Constant\SystemConstant.h" />
     <ClInclude Include="GameApp\GameApp.h" />
-    <ClInclude Include="System\FPS.h" />
+    <ClInclude Include="System\FPS\FrameController.h" />
+    <ClInclude Include="System\FPS\FrameRateCounter.h" />
+    <ClInclude Include="System\FPS\FrameRateLimiter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
