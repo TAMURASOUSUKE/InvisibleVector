@@ -19,6 +19,12 @@
     <Filter Include="ソース ファイル\Constant">
       <UniqueIdentifier>{5826f182-7a65-465d-be74-079a0cfea7e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\System">
+      <UniqueIdentifier>{461e0b77-949a-4db5-bcd1-f0fbd8c7f5de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Base">
+      <UniqueIdentifier>{1422e3bc-6baf-4378-aa0b-c147fc18149f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -27,12 +33,24 @@
     <ClCompile Include="GameApp\GameApp.cpp">
       <Filter>ソース ファイル\GameApp</Filter>
     </ClCompile>
+    <ClCompile Include="System\FPS.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp\GameApp.h">
       <Filter>ソース ファイル\GameApp</Filter>
     </ClInclude>
     <ClInclude Include="Constant\GameConstant.h">
+      <Filter>ソース ファイル\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="System\FPS.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\ObjectBase.h">
+      <Filter>ソース ファイル\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant\SystemConstant.h">
       <Filter>ソース ファイル\Constant</Filter>
     </ClInclude>
   </ItemGroup>

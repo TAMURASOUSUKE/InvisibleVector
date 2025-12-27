@@ -60,8 +60,10 @@ void GameApp::Run()
 	// [EN] Loop until ProcessMessage fails or Escape key is pressed. [JP] プロセスメッセージが失敗するかESCキーが押されるまでループする 
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
+		fps.Update();
 		Update();
 		Draw();
+		fps.Wait();
 	}
 }
 
@@ -75,6 +77,11 @@ void GameApp::Update()
 void GameApp::Draw()
 {
 
+	// [EN] Draw 3D area [JP] 3D領域の描画
+
+	SetUseZBuffer3D(true); // [EN] Enable Z-buffer for 3D drawing. [JP] 3D描画のためZバッファを有効化する
+	SetWriteZBuffer3D(true); // [EN] Enable writing to Z-buffer for 3D drawing. [JP] 3D描画のためZバッファへの書き込みを有効化する
+
 	ClearDrawScreen();
 
 	// [EN] Draw debug text [JP] デバッグ用のテキスト
@@ -82,6 +89,14 @@ void GameApp::Draw()
 
 	// [EN] Draw debug sphere [JP] デバッグ用の球
 	DrawSphere3D(VGet(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f), 32, 32, red, red, true);
+
+
+	// [EN] Draw 2D area FPS. [JP] 2D領域にFPSを描画する
+
+	SetUseZBuffer3D(false); // [EN] Disable Z-buffer for 2D drawing. [JP] 2D描画のためZバッファを無効化する
+	SetWriteZBuffer3D(false); // [EN] Disable writing to Z-buffer for 2D drawing. [JP] 2D描画のためZバッファへの書き込みを無効化する
+
+	fps.Draw();
 
 	ScreenFlip();
 }

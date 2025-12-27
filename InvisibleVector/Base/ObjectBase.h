@@ -16,7 +16,7 @@ public :
 	/// </summary>
 	/// <param name="x"> [EN] PositionX coordinate [JP] X座標 </param>
 	/// <param name="y"> [EN] PositionY coordinate [JP] Y座標 </param>
-	ObjectBase(float x, float y) : position_x(x), position_y(y) {}
+	ObjectBase(float x, float y) : position_x{ x }, position_y{ y } {}
 
 	/// <summary>
 	/// [EN] Constructor : Initialize position of 3D object. [JP] コンストラクタ : 3Dオブジェクトの位置を初期化する
