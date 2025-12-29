@@ -83,28 +83,35 @@ void GameApp::Update()
 void GameApp::Draw()
 {
 
-	// [EN] Draw 3D area [JP] 3D領域の描画
+// ======================================================== [EN] Draw 3D area [JP] 3D領域の描画 ================================================================
 
 	SetUseZBuffer3D(true); // [EN] Enable Z-buffer for 3D drawing. [JP] 3D描画のためZバッファを有効化する
 	SetWriteZBuffer3D(true); // [EN] Enable writing to Z-buffer for 3D drawing. [JP] 3D描画のためZバッファへの書き込みを有効化する
 
 	ClearDrawScreen();
 
-	// [EN] Draw debug text [JP] デバッグ用のテキスト
-	DrawFormatString(20, 20, white, "Hello_World_Debug");
+
+
+
+#ifdef _DEBUG
 
 	// [EN] Draw debug sphere [JP] デバッグ用の球
 	DrawSphere3D(VGet(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f), 32, 32, red, red, true);
 
+#endif // _DEBUG
 
-	// [EN] Draw 2D area FPS. [JP] 2D領域にFPSを描画する
+// ======================================================== [EN] Draw 2D area FPS. [JP] 2D領域にFPSを描画する ==================================================
 
 	SetUseZBuffer3D(false); // [EN] Disable Z-buffer for 2D drawing. [JP] 2D描画のためZバッファを無効化する
 	SetWriteZBuffer3D(false); // [EN] Disable writing to Z-buffer for 2D drawing. [JP] 2D描画のためZバッファへの書き込みを無効化する
 
 #ifdef _DEBUG
 
-	DrawFormatString(DEBUG_FPS_POSITION_X, DEBUG_FPS_POSITION_Y, GetColor(255, 255, 255), "%.1f", frameController.GetCurrentFPS());
+	// [EN] Draw debug text [JP] デバッグ用のテキスト
+	DrawFormatString(20, 20, white, "Hello_World_Debug");
+
+	DrawFormatString(DEBUG_FPS_POSITION_X, DEBUG_FPS_POSITION_Y, GetColor(255, 255, 255), "現在のFPS : %.1f", frameController.GetCurrentFPS());
+	DrawFormatString(DEBUG_DELTA_TIME_POSITION_X, DEBUG_DELTA_TIME_POSITION_Y, GetColor(255, 255, 255), "Delta Time : %.6f", frameController.GetDeltaTime());
 
 #endif // _DEBUG
 

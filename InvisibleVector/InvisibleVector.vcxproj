@@ -141,11 +141,11 @@
   <ItemGroup>
     <ClCompile Include="GameApp\GameApp.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="System\FPS\FrameController.cpp" />
     <ClCompile Include="System\FPS\FrameRateCounter.cpp" />
     <ClCompile Include="System\FPS\FrameRateLimiter.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Base\ObjectBase.h" />
     <ClInclude Include="Constant\GameConstant.h" />
     <ClInclude Include="Constant\SystemConstant.h" />
     <ClInclude Include="GameApp\GameApp.h" />

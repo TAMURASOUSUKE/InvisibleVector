@@ -43,7 +43,7 @@ private:
 	void Draw();
 
 private:
-	FrameRateController frameController{ USE_FPS };
+	FrameController frameController{ USE_FPS };
 	unsigned int white{0};
 	unsigned int red{0};
 };
