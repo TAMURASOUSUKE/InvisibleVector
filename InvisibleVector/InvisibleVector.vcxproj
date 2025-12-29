@@ -110,9 +110,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,10 +141,17 @@
   <ItemGroup>
     <ClCompile Include="GameApp\GameApp.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="System\FPS\FrameController.cpp" />
+    <ClCompile Include="System\FPS\FrameRateCounter.cpp" />
+    <ClCompile Include="System\FPS\FrameRateLimiter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constant\GameConstant.h" />
+    <ClInclude Include="Constant\SystemConstant.h" />
     <ClInclude Include="GameApp\GameApp.h" />
+    <ClInclude Include="System\FPS\FrameController.h" />
+    <ClInclude Include="System\FPS\FrameRateCounter.h" />
+    <ClInclude Include="System\FPS\FrameRateLimiter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

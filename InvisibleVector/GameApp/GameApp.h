@@ -1,5 +1,6 @@
 #pragma once
-
+#include "SystemConstant.h"
+#include "../System/FPS/FrameController.h"
 
 
 /// <summary>
@@ -42,6 +43,7 @@ private:
 	void Draw();
 
 private:
+	FrameController frameController{ USE_FPS };
 	unsigned int white{0};
 	unsigned int red{0};
 };

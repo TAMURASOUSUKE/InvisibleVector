@@ -1,18 +1,22 @@
 #include "DxLib.h"
+#include <timeapi.h>
 #include "../Constant/GameConstant.h"
 #include "GameApp.h"
 
+#pragma comment(lib, "winmm.lib")
 
 // [EN] Constructor: Initialze variables [JP] コンストラクタ: 変数の初期化などを行う
 GameApp::GameApp()
 {
-
+	timeBeginPeriod(1);
 }
 
 
 // [EN] Finalize Dxlib resource. [JP] Dxlibの終了処理を行う
 GameApp::~GameApp()
 {
+	timeEndPeriod(1);
+
 	// [EN] Ensure Dxlib is shut down correctly.
 	DxLib_End();
 }
@@ -60,8 +64,12 @@ void GameApp::Run()
 	// [EN] Loop until ProcessMessage fails or Escape key is pressed. [JP] プロセスメッセージが失敗するかESCキーが押されるまでループする 
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
+		frameController.BeginFrame();
+
 		Update();
 		Draw();
+
+		frameController.EndFrame();
 	}
 }
 
@@ -75,13 +83,38 @@ void GameApp::Update()
 void GameApp::Draw()
 {
 
+// ======================================================== [EN] Draw 3D area [JP] 3D領域の描画 ================================================================
+
+	SetUseZBuffer3D(true); // [EN] Enable Z-buffer for 3D drawing. [JP] 3D描画のためZバッファを有効化する
+	SetWriteZBuffer3D(true); // [EN] Enable writing to Z-buffer for 3D drawing. [JP] 3D描画のためZバッファへの書き込みを有効化する
+
 	ClearDrawScreen();
+
+
+
+
+#ifdef _DEBUG
+
+	// [EN] Draw debug sphere [JP] デバッグ用の球
+	DrawSphere3D(VGet(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f), 32, 32, red, red, true);
+
+#endif // _DEBUG
+
+// ======================================================== [EN] Draw 2D area FPS. [JP] 2D領域にFPSを描画する ==================================================
+
+	SetUseZBuffer3D(false); // [EN] Disable Z-buffer for 2D drawing. [JP] 2D描画のためZバッファを無効化する
+	SetWriteZBuffer3D(false); // [EN] Disable writing to Z-buffer for 2D drawing. [JP] 2D描画のためZバッファへの書き込みを無効化する
+
+#ifdef _DEBUG
 
 	// [EN] Draw debug text [JP] デバッグ用のテキスト
 	DrawFormatString(20, 20, white, "Hello_World_Debug");
 
-	// [EN] Draw debug sphere [JP] デバッグ用の球
-	DrawSphere3D(VGet(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f), 32, 32, red, red, true);
+	DrawFormatString(DEBUG_FPS_POSITION_X, DEBUG_FPS_POSITION_Y, GetColor(255, 255, 255), "現在のFPS : %.1f", frameController.GetCurrentFPS());
+	DrawFormatString(DEBUG_DELTA_TIME_POSITION_X, DEBUG_DELTA_TIME_POSITION_Y, GetColor(255, 255, 255), "Delta Time : %.6f", frameController.GetDeltaTime());
+
+#endif // _DEBUG
+
 
 	ScreenFlip();
 }
