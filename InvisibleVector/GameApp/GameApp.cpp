@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include <timeapi.h>
-#include "../Constant/GameConstant.h"
+#include "GameConstant.h"
+#include "../Math/Vector3_Dxlib.h"
 #include "GameApp.h"
 
 #pragma comment(lib, "winmm.lib")
@@ -95,8 +96,6 @@ void GameApp::Draw()
 
 #ifdef _DEBUG
 
-	// [EN] Draw debug sphere [JP] デバッグ用の球
-	DrawSphere3D(VGet(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f), 32, 32, red, red, true);
 
 #endif // _DEBUG
 
@@ -106,9 +105,6 @@ void GameApp::Draw()
 	SetWriteZBuffer3D(false); // [EN] Disable writing to Z-buffer for 2D drawing. [JP] 2D描画のためZバッファへの書き込みを無効化する
 
 #ifdef _DEBUG
-
-	// [EN] Draw debug text [JP] デバッグ用のテキスト
-	DrawFormatString(20, 20, white, "Hello_World_Debug");
 
 	DrawFormatString(DEBUG_FPS_POSITION_X, DEBUG_FPS_POSITION_Y, GetColor(255, 255, 255), "現在のFPS : %.1f", frameController.GetCurrentFPS());
 	DrawFormatString(DEBUG_DELTA_TIME_POSITION_X, DEBUG_DELTA_TIME_POSITION_Y, GetColor(255, 255, 255), "Delta Time : %.6f", frameController.GetDeltaTime());
