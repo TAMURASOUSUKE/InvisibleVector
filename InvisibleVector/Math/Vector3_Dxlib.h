@@ -1,0 +1,44 @@
+#pragma once
+#include "Dxlib.h"
+#include "Vector3.h"
+
+
+/// <summary>
+/// [EN] Convert VECTOR to Vector3 [JP] VectorからVECTORへの変換関数
+/// </summary>
+/// <param name="other">[EN] Other vector [JP] ほかのベクトル</param>
+/// <returns>[EN] Convert after VECTOR [JP] 変換後のVECTOR</returns>
+inline VECTOR ToDxLib(const Vector3& other)
+{
+	return  { other.x, other.y, other.z };
+}
+
+/// <summary>
+/// [EN] Convert VECTOR to Vector3(Ver.Int) [JP] VectorからVECTORへの変換関数(Int版)
+/// </summary>
+/// <param name="other">[EN] Other vector [JP] ほかのベクトル</param>
+/// <returns>[EN] Convert after VECTOR [JP] 変換後のVECTOR</returns>
+inline VECTOR ToDxLib(const Vector3Int& other)
+{
+	return  { static_cast<float>(other.x), static_cast<float>(other.y), static_cast<float>(other.z) };
+}
+
+/// <summary>
+/// [EN] Convert Vector3 to VECTOR [JP] VECTORからVectorへの変換関数
+/// </summary>
+/// <param name="other">[EN] Other vector [JP] ほかのベクトル</param>
+/// <returns>[EN] Convert after Vector3 [JP] 変換後のVector3</returns>
+inline Vector3 ToVector3(const VECTOR& other)
+{
+	return Vector3{ other.x, other.y, other.z };
+}
+
+/// <summary>
+/// [EN] Convert Vector3 to VECTOR(Ver.Int) [JP] VECTORからVectorへの変換関数(Int版)
+/// </summary>
+/// <param name="other">[EN] Other vector [JP] ほかのベクトル</param>
+/// <returns>[EN] Convert after Vector3 [JP] 変換後のVector3</returns>
+inline Vector3Int ToVector3Int(const VECTOR& other)
+{
+	return Vector3Int{ static_cast<int>(other.x), static_cast<int>(other.y), static_cast<int>(other.z) };
+}
