@@ -149,8 +149,9 @@
     <ClInclude Include="Constant\GameConstant.h" />
     <ClInclude Include="Constant\SystemConstant.h" />
     <ClInclude Include="GameApp\GameApp.h" />
+    <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
-    <ClInclude Include="Math\Vector3_Dxlib.h" />
+    <ClInclude Include="Math\Vector_Dxlib.h" />
     <ClInclude Include="System\FPS\FrameController.h" />
     <ClInclude Include="System\FPS\FrameRateCounter.h" />
     <ClInclude Include="System\FPS\FrameRateLimiter.h" />

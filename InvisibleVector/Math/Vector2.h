@@ -21,7 +21,7 @@ struct Vector2Base
 	/// </summary>
 	/// <param name="x">[EN] Coordinate x. [JP] X座標</param>
 	/// <param name="y">[EN] Coordinate y. [JP] Y座標</param>
-	Vector2Base(ValueType x, ValueType y, ValueType z) : x{ x }, y{ y } {}
+	Vector2Base(ValueType x, ValueType y) : x{ x }, y{ y } {}
 
 	/// <summary>
 	/// [EN] Calculate Dot. 
@@ -132,7 +132,7 @@ struct Vector2Base
 	/// <returns>[EN] Vector after scalar multiplication [JP] スカラー乗算後のベクトル</returns>
 	Vector2Base operator *(const ValueType& value) const
 	{
-		return Vector3Base{
+		return Vector2Base{
 			x * value,
 			y * value,
 		};
@@ -160,9 +160,9 @@ struct Vector2Base
 	{
 
 		// 0に近い値で割ろうとしたら0ベクトルを返す
-		if (std::abs(value) < GAMEEPSILON<ValueType>)
+		if (std::abs(value) < GAME_EPSILON<ValueType>)
 		{
-			return Vector2Base{ 0, 0, 0 };
+			return Vector2Base{ 0, 0};
 		}
 
 		return Vector2Base{
@@ -232,7 +232,7 @@ struct Vector2Base
 	Vector2Base& operator /=(const ValueType& value)
 	{
 		// 0に近い値で割ろうとしたら0ベクトルを返す
-		if (std::abs(value) < GAMEEPSILON<ValueType>)
+		if (std::abs(value) < GAME_EPSILON<ValueType>)
 		{
 			x = 0;
 			y = 0;
@@ -261,7 +261,7 @@ struct Vector2Base
 		if constexpr (std::is_floating_point_v<ValueType>)
 		{
 			// 許容誤差を取得
-			constexpr ValueType epsilon = GAMEEPSILON<ValueType>;
+			constexpr ValueType epsilon = GAME_EPSILON<ValueType>;
 
 			// 差の絶対値がイプシロン以下なら同じとみなす
 			return std::abs(x - other.x) <= epsilon &&

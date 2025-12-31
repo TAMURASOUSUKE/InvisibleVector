@@ -60,7 +60,10 @@
     <ClInclude Include="Math\Vector3.h">
       <Filter>ソース ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Vector3_Dxlib.h">
+    <ClInclude Include="Math\Vector_Dxlib.h">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
       <Filter>ソース ファイル\Math</Filter>
     </ClInclude>
   </ItemGroup>
