@@ -20,19 +20,19 @@ constexpr float LIMIT_DELTA_TIME{ 0.05f }; // [EN] DeltaTime limit when processi
 // =========================================================== Math ==========================================================================
 // [EN] DefaultEpsilon [JP] デフォルトのイプシロン
 template<typename T>
-constexpr T GAMEEPSILON = std::numeric_limits<T>::epsilon();
+constexpr T GAME_EPSILON = std::numeric_limits<T>::epsilon();
 
 // [EN] type float [JP] floatのイプシロン
 template<>
-constexpr float GAMEEPSILON<float>{1e-5f};
+constexpr float GAME_EPSILON<float>{1e-5f};
 
 // [EN] type double [JP] doubleのイプシロン
 template<>
-constexpr double GAMEEPSILON<double>{1e-9};
+constexpr double GAME_EPSILON<double>{1e-9};
 
 // [EN] type int [JP] intのイプシロン
 template<>
-constexpr int GAMEEPSILON<int>{0};
+constexpr int GAME_EPSILON<int>{0};
 
 constexpr int DEBUG_DELTA_POSITION_LOG_X{ 20 };
 constexpr int DEBUG_DELTA_POSITION_LOG_Y{ 60 };
