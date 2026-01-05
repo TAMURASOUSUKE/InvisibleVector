@@ -19,8 +19,15 @@ void FrameController::BeginFrame()
 		deltaTime = std::min(rawDeltaTime, LIMIT_DELTA_TIME);
 	}
 
+	accumulator += deltaTime;
+
+	// [EN] Prevent overflow when processing slows down [JP] ˆ——Ž‚¿‚µ‚½Û‚É‚ ‚Ó‚ê‚é‚Ì‚ð–hŽ~‚·‚é
+	if (accumulator > LIMIT_ACCUMULATOR) accumulator = LIMIT_ACCUMULATOR;
+
 	prevFrameStartTime = now;
 	startTime = now;
+
+
 }
 
 
@@ -29,4 +36,14 @@ void FrameController::EndFrame()
 	limiter.Wait(startTime);
 
 	counter.Update(startTime);
+}
+
+void FrameController::ConsumeFixedTime()
+{
+	accumulator -= FIXED_DELTA_TIME;
+}
+
+bool FrameController::IsFixedUpdateRequired()
+{
+	return accumulator >= FIXED_DELTA_TIME;
 }
