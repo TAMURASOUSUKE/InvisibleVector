@@ -1,6 +1,5 @@
 #pragma once
 #include <chrono>
-#include "SystemConstant.h"
 #include "FrameRateCounter.h"
 #include "FrameRateLimiter.h"
 
@@ -33,6 +32,17 @@ public:
 	void EndFrame();
 
 	/// <summary>
+	/// [EN] Decrease accumulator [JP] accumulatorを減らす
+	/// </summary>
+	void ConsumeFixedTime();
+
+	/// <summary>
+	/// [EN] Returns whether the accumulator exceeds the fixed delta time. [JP] accumulatorがfixed delta timeを超えるか同かを返す
+	/// </summary>
+	/// <returns>[EN] If it exceeds, true; otherwise [JP] 超えていればtrue, そうでなければfalse</returns>
+	bool IsFixedUpdateRequired();
+
+	/// <summary>
 	/// [EN] Get current FPS [JP] 現在のFPSを取得する
 	/// </summary>
 	/// <returns>current FPS</returns>
@@ -44,6 +54,8 @@ public:
 	/// <returns> [EN] deltaTime. [JP] デルタタイム </returns>
 	float GetDeltaTime() const { return deltaTime; }
 
+
+
 private:
 	time_point<steady_clock> startTime{}; // [EN] For limiter wait start. [JP] 待機関数用の開始フレーム 
 	time_point<steady_clock> prevFrameStartTime{}; // [EN] For delta time calculation. [JP] デルタタイム計算用
@@ -52,5 +64,6 @@ private:
 	FrameRateLimiter limiter{0};
 
 	float deltaTime{ 0.0f }; // [EN] Delat time.(seconds) [JP] デルタタイム(秒)
+	float accumulator{ 0.0f }; // [EN] Accumulator for fixed update. [JP] 固定更新用の蓄積時間
 
 };
