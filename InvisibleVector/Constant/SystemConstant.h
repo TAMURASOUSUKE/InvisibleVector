@@ -16,6 +16,8 @@ constexpr int DEBUG_FPS_POSITION_Y{ 20 };
 constexpr int DEBUG_DELTA_TIME_POSITION_X{ 20 };
 constexpr int DEBUG_DELTA_TIME_POSITION_Y{ 40 };
 constexpr float LIMIT_DELTA_TIME{ 0.05f }; // [EN] DeltaTime limit when processing slows down. [JP] 処理落ちの際のデルタタイム制限
+constexpr float FIXED_DELTA_TIME{ 1.0f / 60.0f }; // [EN] Fixed time step for physics calculations(e.g... 1.0f / 60.0f) [JP] 物理計算用の固定時間ステップ]
+constexpr float LIMIT_ACCUMULATOR{ 0.2f };
 
 // =========================================================== Math ==========================================================================
 // [EN] DefaultEpsilon [JP] デフォルトのイプシロン
