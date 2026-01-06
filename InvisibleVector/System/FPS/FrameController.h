@@ -8,8 +8,9 @@
 /// [EN] Manage the FPS and  delta time. [JP] FPSとdeltaタイムの管理を行う
 /// </summary>
 class FrameController
-{	
+{
 public:
+
 	/// <summary>
 	/// [EN] Constructor specifying FPS. [JP] FPSを指定するコンストラクタ
 	/// </summary>
@@ -25,7 +26,7 @@ public:
 	/// [EN] First processing of the frame [JP] 最初のフレーム処理
 	/// </summary>
 	void BeginFrame();
- 
+
 	/// <summary>
 	/// [EN] End of frame processing. [JP] フレームの最後の処理
 	/// </summary>
@@ -54,14 +55,12 @@ public:
 	/// <returns> [EN] deltaTime. [JP] デルタタイム </returns>
 	float GetDeltaTime() const { return deltaTime; }
 
-
-
 private:
 	time_point<steady_clock> startTime{}; // [EN] For limiter wait start. [JP] 待機関数用の開始フレーム 
 	time_point<steady_clock> prevFrameStartTime{}; // [EN] For delta time calculation. [JP] デルタタイム計算用
 
 	FrameRateCounter counter{};
-	FrameRateLimiter limiter{0};
+	FrameRateLimiter limiter{ 0 };
 
 	float deltaTime{ 0.0f }; // [EN] Delat time.(seconds) [JP] デルタタイム(秒)
 	float accumulator{ 0.0f }; // [EN] Accumulator for fixed update. [JP] 固定更新用の蓄積時間
