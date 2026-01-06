@@ -2,22 +2,6 @@
 #include "SystemConstant.h"
 #include "FrameController.h"
 
-FrameController* FrameController::instance = nullptr;
-
-FrameController::FrameController(int FPS) : limiter(FPS)
-{
-	instance = this;
-}
-
-FrameController::~FrameController()
-{
-	if (instance == this)
-	{
-		instance = nullptr;
-	}
-}
-
-
 void FrameController::BeginFrame()
 {
 	// [EN] Get now time. [JP] Œ»İ‚ÌŠÔ‚ğæ“¾

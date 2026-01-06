@@ -12,20 +12,11 @@ class FrameController
 public:
 
 	/// <summary>
-	/// [EN] Get instance singleton pattern [JP] インスタンスを取得する関数(シングルトン)
-	/// </summary>
-	/// <returns>[EN] instance of this class [JP] このクラスのインスタンス</returns>
-	static FrameController* GetInstance()
-	{
-		return instance;
-	}
-
-	/// <summary>
 	/// [EN] Constructor specifying FPS. [JP] FPSを指定するコンストラクタ
 	/// </summary>
 	/// <param name="FPS"> [EN] specifying FPS. [JP] FPSの指定</param>
-	FrameController(int FPS);
-	~FrameController();
+	FrameController(int FPS) : limiter{FPS} {}
+	~FrameController() = default;
 
 	// [EN] Prohibited copy of this class. [JP] このクラスのコピーを禁止する
 	FrameController(const FrameController& other) = delete;
@@ -73,7 +64,5 @@ private:
 
 	float deltaTime{ 0.0f }; // [EN] Delat time.(seconds) [JP] デルタタイム(秒)
 	float accumulator{ 0.0f }; // [EN] Accumulator for fixed update. [JP] 固定更新用の蓄積時間
-
-	static FrameController* instance;
 
 };
