@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClCompile Include="GameApp\GameApp.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Objects\WorldObjectBase.cpp" />
+    <ClCompile Include="Objects\Base\WorldObjectBase.cpp" />
     <ClCompile Include="System\FPS\FrameController.cpp" />
     <ClCompile Include="System\FPS\FrameRateCounter.cpp" />
     <ClCompile Include="System\FPS\FrameRateLimiter.cpp" />
@@ -153,11 +153,11 @@
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector_Dxlib.h" />
-    <ClInclude Include="Objects\UIObjectBase.h" />
-    <ClInclude Include="Objects\WorldObjectBase.h" />
-    <ClInclude Include="Objects\ObjectBase.h" />
-    <ClInclude Include="Objects\ObjectFactory.h" />
-    <ClInclude Include="Objects\ObjectManager.h" />
+    <ClInclude Include="Objects\Base\ObjectBase.h" />
+    <ClInclude Include="Objects\Base\ObjectFactory.h" />
+    <ClInclude Include="Objects\Base\ObjectManager.h" />
+    <ClInclude Include="Objects\Base\UIObjectBase.h" />
+    <ClInclude Include="Objects\Base\WorldObjectBase.h" />
     <ClInclude Include="System\FPS\FrameController.h" />
     <ClInclude Include="System\FPS\FrameRateCounter.h" />
     <ClInclude Include="System\FPS\FrameRateLimiter.h" />

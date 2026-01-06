@@ -25,7 +25,7 @@ public:
 	/// Physical Update. [JP] 物理的な更新を行う
 	/// </summary>
 	/// <param name="deltaTime">[EN] delta time [JP] 毎フレームごとに計算されるdelta time</param>
-	virtual void UpdatePhysics(float deltaTime);
+	 void FixedUpdate(float fixedDeltaTime) override;
 
 	/// <summary>
 	/// Get position [JP] 位置のGetter
