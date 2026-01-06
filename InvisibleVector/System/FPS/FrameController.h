@@ -15,8 +15,8 @@ public:
 	/// [EN] Constructor specifying FPS. [JP] FPSを指定するコンストラクタ
 	/// </summary>
 	/// <param name="FPS"> [EN] specifying FPS. [JP] FPSの指定</param>
-	FrameController(int FPS) : limiter{FPS} {}
-	~FrameController() = default;
+	FrameController(int FPS);
+	~FrameController();
 
 	// [EN] Prohibited copy of this class. [JP] このクラスのコピーを禁止する
 	FrameController(const FrameController& other) = delete;
@@ -47,13 +47,15 @@ public:
 	/// [EN] Get current FPS [JP] 現在のFPSを取得する
 	/// </summary>
 	/// <returns>current FPS</returns>
-	float GetCurrentFPS() const { return counter.GetCurrentFPS(); }
+	float GetCurrentFPS() const { return currentFPS; }
 
 	/// <summary>
 	/// [EN] Get delta time. [JP] 前フレームからの経過時間(秒)を取得 
 	/// </summary>
 	/// <returns> [EN] deltaTime. [JP] デルタタイム </returns>
 	float GetDeltaTime() const { return deltaTime; }
+private:
+	void CalculateAlpha();
 
 private:
 	time_point<steady_clock> startTime{}; // [EN] For limiter wait start. [JP] 待機関数用の開始フレーム 
@@ -63,6 +65,9 @@ private:
 	FrameRateLimiter limiter{ 0 };
 
 	float deltaTime{ 0.0f }; // [EN] Delat time.(seconds) [JP] デルタタイム(秒)
+	float currentFPS{ 0.0f };
+	float fixedDeltaTime{ 0.0f };
 	float accumulator{ 0.0f }; // [EN] Accumulator for fixed update. [JP] 固定更新用の蓄積時間
+	float alpha{ 0.0f }; 
 
 };
