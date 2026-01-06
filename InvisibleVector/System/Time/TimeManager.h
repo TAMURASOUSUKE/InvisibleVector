@@ -5,17 +5,17 @@ class FrameController;
 /// <summary>
 /// [EN] Manage of delta time and fixed delta time. [JP] DeltaTimeとFixedDeltaTimeを管理する
 /// </summary>
-class Time
+class TimeManager
 {
 public:
 	/// <summary>
 	/// [EN] Prohibited of instance [JP] インスタンスを作ることを禁止する
 	/// </summary>
-	Time() = delete;
+	TimeManager() = delete;
 
 	// [EN] Prohibited copy of this class. [JP] このクラスのコピーを禁止する
-	Time(const Time& other) = delete;
-	Time operator=(Time other) = delete;
+	TimeManager(const TimeManager& other) = delete;
+	TimeManager operator=(TimeManager other) = delete;
 
 	/// <summary>
 	/// [EN] Get delta time in seconds [JP] 秒単位のdeltatime

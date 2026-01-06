@@ -55,6 +55,9 @@ bool GameApp::Initialize()
 	SetCameraPositionAndTarget_UpVecY(VGet(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, -100.0f), VGet(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 1.0f)); // カメラの位置と注視点の設定(位置途中視点はデフォルトです)
 	// ------------------------------------------------------------------------
 
+	// [EN] Initialize ObjectFactory [JP] 生成クラスを初期化するためにマネージャーを渡す
+	objectFactory = std::make_unique<ObjectFactory>(&objectManager);
+
 	return true;
 }
 
@@ -77,7 +80,16 @@ void GameApp::Run()
 // [EN] Update Game Logic. [JP] ゲームロジックの更新
 void GameApp::Update()
 {
+	while (frameController.IsFixedUpdateRequired())
+	{
+		objectManager.FixedUpdate();
 
+		frameController.ConsumeFixedTime();
+	}
+
+	objectManager.Update();
+
+	objectManager.Refresh();
 }
 
 // [EN] Render Frame

@@ -19,7 +19,7 @@ public:
 	/// [EN] Initialize position constructor [JP] 位置を初期化するコンストラクタ
 	/// </summary>
 	/// <param name="position">[EN] Initialize position [JP 初期化したい位置</param>
-	WorldObjectBase(const Vector3& position) : position{position} {}
+	WorldObjectBase(const Vector3& position) : position{position} , ObjectBase(RenderLayer::World){}
 	
 	/// <summary>
 	/// Physical Update. [JP] 物理的な更新を行う

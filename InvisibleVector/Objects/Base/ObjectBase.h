@@ -1,5 +1,14 @@
 #pragma once
 
+// [EN] Draw layer [JP] 描画レイヤー
+enum class RenderLayer
+{
+	None,
+	World, // 3D
+	UI // 2D
+};
+
+
 /// <summary>
 /// [EN] The base class for all objects [JP] すべてのオブジェクトの基底クラスとなる
 /// </summary>
@@ -36,9 +45,10 @@ public:
 	void Destroy() { isActive = false; }
 
 protected:
-	ObjectBase() = default;
+	ObjectBase(RenderLayer layer) : layer{layer}{}
 
 protected:
+	RenderLayer layer{RenderLayer::None};
 	// [EN] Active flag. [JP] 生存フラグ
 	bool isActive{ true };
 

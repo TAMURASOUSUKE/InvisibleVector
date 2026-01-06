@@ -168,7 +168,7 @@ struct Vector3Base
 	{
 
 		// 0に近い値で割ろうとしたら0ベクトルを返す
-		if (std::abs(value) < GAMEEPSILON<ValueType>)
+		if (std::abs(value) < GAME_EPSILON<ValueType>)
 		{
 			return Vector3Base{ 0, 0, 0 };
 		}
@@ -244,7 +244,7 @@ struct Vector3Base
 	Vector3Base& operator /=(const ValueType& value)
 	{
 		// 0に近い値で割ろうとしたら0ベクトルを返す
-		if (std::abs(value) < GAMEEPSILON<ValueType>)
+		if (std::abs(value) < GAME_EPSILON<ValueType>)
 		{
 			x = 0;
 			y = 0;
@@ -275,7 +275,7 @@ struct Vector3Base
 		if constexpr (std::is_floating_point_v<ValueType>)
 		{
 			// 許容誤差を取得
-			constexpr ValueType epsilon = GAMEEPSILON<ValueType>;
+			constexpr ValueType epsilon = GAME_EPSILON<ValueType>;
 
 			// 差の絶対値がイプシロン以下なら同じとみなす
 			return std::abs(x - other.x) <= epsilon &&

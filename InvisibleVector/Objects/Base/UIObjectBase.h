@@ -5,5 +5,5 @@
 class UIObjectBase : public ObjectBase
 {
 public:
-
+	UIObjectBase() : ObjectBase(RenderLayer::UI) {}
 };
