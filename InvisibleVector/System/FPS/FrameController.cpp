@@ -1,6 +1,20 @@
 #include <algorithm>
 #include "SystemConstant.h"
+#include "../Time/Time.h"
 #include "FrameController.h"
+
+
+FrameController::FrameController(int FPS) : limiter{ FPS }
+{
+	fixedDeltaTime = FIXED_DELTA_TIME;
+	Time::Bind(&deltaTime, &fixedDeltaTime, &currentFPS, &alpha);
+}
+
+// [EN] Zero clear of Bind function [JP] 結合用関数を終了時に0でクリアする
+FrameController::~FrameController()
+{
+	Time::Bind(&SEAF_ZERO, &SEAF_ZERO, &SEAF_ZERO, &SEAF_ZERO);
+}
 
 void FrameController::BeginFrame()
 {
@@ -24,10 +38,22 @@ void FrameController::BeginFrame()
 	// [EN] Prevent overflow when processing slows down [JP] 処理落ちした際にあふれるのを防止する
 	if (accumulator > LIMIT_ACCUMULATOR) accumulator = LIMIT_ACCUMULATOR;
 
+	CalculateAlpha();
+
 	prevFrameStartTime = now;
 	startTime = now;
+	currentFPS = counter.GetCurrentFPS();
 
 
+}
+
+/// <summary>
+/// [EN] A function to check the percentage of the remaining time in a fixed step
+/// [JP] 残り時間が固定ステップの何割かを調べる関数
+/// </summary>
+void FrameController::CalculateAlpha()
+{
+	alpha = accumulator / fixedDeltaTime;
 }
 
 
@@ -41,6 +67,7 @@ void FrameController::EndFrame()
 void FrameController::ConsumeFixedTime()
 {
 	accumulator -= FIXED_DELTA_TIME;
+	CalculateAlpha();
 }
 
 bool FrameController::IsFixedUpdateRequired()
