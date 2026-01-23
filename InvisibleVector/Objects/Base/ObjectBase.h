@@ -15,18 +15,13 @@ enum class RenderLayer
 class ObjectBase
 {
 public:
-	~ObjectBase() = default;
+	 virtual ~ObjectBase() = default;
 
 
 	/// <summary>
 	/// [EN] Virtual function. Update every frame. [JP] 毎フレームの更新を行う純粋仮想関数
 	/// </summary>
 	virtual void Update() = 0;
-
-	/// <summary>
-	/// [EN] Physics update functions [JP] 物理更新用関数
-	/// </summary>
-	virtual void FixedUpdate() {}
 
 	/// <summary>
 	/// [EN] Virtual function. Do the drawing. [JP] 描画を行う純粋仮想関数

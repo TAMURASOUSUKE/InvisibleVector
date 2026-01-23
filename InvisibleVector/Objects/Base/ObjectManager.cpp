@@ -3,31 +3,45 @@
 
 void ObjectManager::Update()
 {
-	for (auto& obj : objects)
+	for (auto& worldObj : worldBasses)
 	{
-		if (!obj->GetIsActive()) continue;
+		if (!worldObj->GetIsActive()) continue;
 
-		obj->Update();
+		worldObj->Update();
+	}
+
+	for (auto& uiObj : uiBasses)
+	{
+		if (!uiObj->GetIsActive()) continue;
+
+		uiObj->Update();
 	}
 }
 
 void ObjectManager::FixedUpdate()
 {
-	for (auto& obj : objects)
+	for (auto& worldObj : worldBasses)
 	{
-		if (!obj->GetIsActive()) continue;
+		if (!worldObj->GetIsActive()) continue;
 
-		obj->FixedUpdate();
+		worldObj->FixedUpdate();
 	}
 }
 
 void ObjectManager::Draw()
 {
-	for (auto& obj : objects)
+	for (auto& worldObj : worldBasses)
 	{
-		if (!obj->GetIsActive()) continue;
+		if (!worldObj->GetIsActive()) continue;
 
-		obj->Draw();
+		worldObj->Update();
+	}
+
+	for (auto& uiObj : uiBasses)
+	{
+		if (uiObj->GetIsActive()) continue;
+
+		uiObj->Update();
 	}
 }
 
@@ -37,12 +51,22 @@ void ObjectManager::Refresh()
 		remove_ifによって配列の最初から最後までを検索し条件に合うものを後ろに詰めていく
 		remove_ifは有効なデータの次のイテレータを返す(要するに今回ならいらないデータの先頭)
 	*/
-	auto it = std::remove_if(objects.begin(), objects.end(),
-		[](const std::unique_ptr<ObjectBase>& obj)
+	auto worldIt = std::remove_if(worldBasses.begin(), worldBasses.end(),
+		[](const std::unique_ptr<WorldObjectBase>& obj)
 		{
 			return !obj->GetIsActive();
 		});
 
 	// いらないデータから配列の最後までを消す
-	objects.erase(it, objects.end());
+	worldBasses.erase(worldIt, worldBasses.end());
+
+
+	auto uiIt = std::remove_if(uiBasses.begin(), uiBasses.end(),
+		[](const std::unique_ptr<UIObjectBase>& obj)
+		{
+			return !obj->GetIsActive();
+		});
+
+	// いらないデータから配列の最後までを消す
+	uiBasses.erase(uiIt, uiBasses.end());
 }

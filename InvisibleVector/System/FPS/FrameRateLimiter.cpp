@@ -13,7 +13,7 @@ void FrameRateLimiter::Wait(time_point<steady_clock> startTime)
 	// [EN] Calculate remaining time. [JP] 残り時間を計算する
 	auto remainingTime = targetTime - nowTime;
 
-	// Until has times. [JP] まだ時間があるかチェック
+	// [EN] Until has times. [JP] まだ時間があるかチェック
 	if (remainingTime.count() <= 0)
 	{
 		// [EN] Processing for slowdowns. [JP] ここでは処理落ち用の処理を書く
