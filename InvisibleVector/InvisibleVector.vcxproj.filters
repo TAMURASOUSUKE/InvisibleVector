@@ -20,6 +20,15 @@
     <Filter Include="ソース ファイル\Math">
       <UniqueIdentifier>{8470817d-ad20-4836-920d-f36d0bdf78ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Objects">
+      <UniqueIdentifier>{71b0dd99-94b7-44b7-95e4-1cae0bee8926}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Objects\Base">
+      <UniqueIdentifier>{7ed5091a-0c11-4301-ac7b-204c9f78022a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\Time">
+      <UniqueIdentifier>{0bc9b251-f486-424a-8f16-c57de035c044}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -36,6 +45,15 @@
     </ClCompile>
     <ClCompile Include="System\FPS\FrameController.cpp">
       <Filter>ソース ファイル\System\FPS</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Base\ObjectManager.cpp">
+      <Filter>ソース ファイル\Objects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Base\WorldObjectBase.cpp">
+      <Filter>ソース ファイル\Objects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Time\TimeManager.cpp">
+      <Filter>ソース ファイル\System\Time</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +83,24 @@
     </ClInclude>
     <ClInclude Include="Math\Vector2.h">
       <Filter>ソース ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Base\ObjectBase.h">
+      <Filter>ソース ファイル\Objects\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Base\ObjectFactory.h">
+      <Filter>ソース ファイル\Objects\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Base\ObjectManager.h">
+      <Filter>ソース ファイル\Objects\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Base\UIObjectBase.h">
+      <Filter>ソース ファイル\Objects\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Base\WorldObjectBase.h">
+      <Filter>ソース ファイル\Objects\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Time\TimeManager.h">
+      <Filter>ソース ファイル\System\Time</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
