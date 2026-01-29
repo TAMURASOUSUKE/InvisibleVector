@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
@@ -128,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -141,9 +141,12 @@
   <ItemGroup>
     <ClCompile Include="GameApp\GameApp.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Objects\Base\ObjectManager.cpp" />
+    <ClCompile Include="Objects\Base\WorldObjectBase.cpp" />
     <ClCompile Include="System\FPS\FrameController.cpp" />
     <ClCompile Include="System\FPS\FrameRateCounter.cpp" />
     <ClCompile Include="System\FPS\FrameRateLimiter.cpp" />
+    <ClCompile Include="System\Time\TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constant\GameConstant.h" />
@@ -152,9 +155,15 @@
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector_Dxlib.h" />
+    <ClInclude Include="Objects\Base\ObjectBase.h" />
+    <ClInclude Include="Objects\Base\ObjectFactory.h" />
+    <ClInclude Include="Objects\Base\ObjectManager.h" />
+    <ClInclude Include="Objects\Base\UIObjectBase.h" />
+    <ClInclude Include="Objects\Base\WorldObjectBase.h" />
     <ClInclude Include="System\FPS\FrameController.h" />
     <ClInclude Include="System\FPS\FrameRateCounter.h" />
     <ClInclude Include="System\FPS\FrameRateLimiter.h" />
+    <ClInclude Include="System\Time\TimeManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

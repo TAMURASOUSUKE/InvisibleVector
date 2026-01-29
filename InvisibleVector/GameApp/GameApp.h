@@ -1,6 +1,9 @@
 #pragma once
+#include <memory>
 #include "SystemConstant.h"
 #include "../System/FPS/FrameController.h"
+#include "../Objects/Base/ObjectManager.h"
+#include "../Objects/Base/ObjectFactory.h"
 
 
 /// <summary>
@@ -43,6 +46,10 @@ private:
 	void Draw();
 
 private:
+	ObjectManager objectManager{};
+	std::unique_ptr<ObjectFactory> objectFactory{};
+
+
 	FrameController frameController{ USE_FPS };
 	unsigned int white{0};
 	unsigned int red{0};

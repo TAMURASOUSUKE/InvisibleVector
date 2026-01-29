@@ -1,19 +1,19 @@
 #include <algorithm>
 #include "SystemConstant.h"
-#include "../Time/Time.h"
+#include "../Time/TimeManager.h"
 #include "FrameController.h"
 
 
 FrameController::FrameController(int FPS) : limiter{ FPS }
 {
 	fixedDeltaTime = FIXED_DELTA_TIME;
-	Time::Bind(&deltaTime, &fixedDeltaTime, &currentFPS, &alpha);
+	TimeManager::Bind(&deltaTime, &fixedDeltaTime, &currentFPS, &alpha);
 }
 
 // [EN] Zero clear of Bind function [JP] 結合用関数を終了時に0でクリアする
 FrameController::~FrameController()
 {
-	Time::Bind(&SEAF_ZERO, &SEAF_ZERO, &SEAF_ZERO, &SEAF_ZERO);
+	TimeManager::Bind(&SEAF_ZERO, &SEAF_ZERO, &SEAF_ZERO, &SEAF_ZERO);
 }
 
 void FrameController::BeginFrame()
