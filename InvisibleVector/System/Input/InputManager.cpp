@@ -176,16 +176,11 @@ void InputManager::LoadConfig()
 	// ファイルが存在しない場合はデフォルト設定を使う
 	if (!file.is_open())
 	{
-		// 出なければ、まだどこかにファイルが残っている
-		OutputDebugString("File NOT found! Loading Defaults\n");
 
 		SetDefaultBindings(); // 初期設定
 		SaveConfig(); // セーブ
 		return;
 	}
-
-	// もしここに来てしまったら、まだファイルが残っている証拠
-	OutputDebugString("File FOUND! Loading from JSON...\n");
 
 	/*
 		Jsonに破損等開けない理由があった場合に対応するためtry-catchを使う
