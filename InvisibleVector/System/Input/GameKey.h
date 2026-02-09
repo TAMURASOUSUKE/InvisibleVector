@@ -2,34 +2,36 @@
 #include <vector>
 // ゲームの入力に関する情報をまとめたヘッダ
 
+constexpr int DEFAULT_TRIGGER_DEAD_ZONE = 128;
+
 // 入力名を抽象化しわかりやすくするための名前空間
 namespace PadCode {
 	// Xboxコントローラーの配置に合わせた定義
-	constexpr int South = PAD_INPUT_A; // Aボタン (下)
-	constexpr int East = PAD_INPUT_B; // Bボタン (右)
-	constexpr int West = PAD_INPUT_C; // Xボタン (左)
-	constexpr int North = PAD_INPUT_X; // Yボタン (上)
+	constexpr int SOUTH = PAD_INPUT_A; // Aボタン (下)
+	constexpr int EAST = PAD_INPUT_B; // Bボタン (右)
+	constexpr int WEST = PAD_INPUT_C; // Xボタン (左)
+	constexpr int NORTH = PAD_INPUT_X; // Yボタン (上)
 
-	constexpr int ShoulderL = PAD_INPUT_Y; // LB (左バンパー)
-	constexpr int ShoulderR = PAD_INPUT_Z; // RB (右バンパー)
+	constexpr int SHOULDER_L = PAD_INPUT_Y; // LB (左バンパー)
+	constexpr int SHOULDER_R = PAD_INPUT_Z; // RB (右バンパー)
 
-	constexpr int TriggerL = PAD_INPUT_L;
-	constexpr int TriggerR = PAD_INPUT_R;
+	constexpr int TRIGGER_L = PAD_INPUT_L;
+	constexpr int TRIGGER_R = PAD_INPUT_R;
 
-	constexpr int PadUp = PAD_INPUT_UP;
-	constexpr int PadDown = PAD_INPUT_DOWN;
-	constexpr int PadLeft = PAD_INPUT_LEFT;
-	constexpr int PadRight = PAD_INPUT_RIGHT;
+	constexpr int UP = PAD_INPUT_UP;
+	constexpr int DOWN = PAD_INPUT_DOWN;
+	constexpr int LEFT = PAD_INPUT_LEFT;
+	constexpr int RIGHT = PAD_INPUT_RIGHT;
 
-	constexpr int StickClickL = PAD_INPUT_9;
-	constexpr int StickClickR = PAD_INPUT_10;
+	constexpr int STICK_CLICK_L = PAD_INPUT_9;
+	constexpr int STICK_CLICK_R = PAD_INPUT_10;
 }
 
 /*
 	ゲームで使う入力をまとめた列挙体
 	入力デバイスを抽象化して使うため起こすアクションの名前で設定する
 */
-enum class GameKey
+enum class GameAction
 {
 	// MoveMent(GetAxisで使う)
 	Up,

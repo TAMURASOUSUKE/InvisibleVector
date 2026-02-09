@@ -135,9 +135,13 @@ void GameApp::Draw()
 
 	inputDebugDrawPos.y += lineHight;
 
+	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Trigger Dead Zone: %d", inputManager.GetTriggerDeadZone());
+
+	inputDebugDrawPos.y += lineHight;
+
 	// ボタンの確認
 	// 押されていれば文字が赤くなるようにする
-	auto DrawButtonState = [&](const char* name, GameKey key)
+	auto DrawButtonState = [&](const char* name, GameAction key)
 		{
 			unsigned int color = inputManager.GetButtonStay(key) ? red : white; // 押し続けていれば赤
 
@@ -152,16 +156,16 @@ void GameApp::Draw()
 		};
 
 	// 主要なキーを表示
-	DrawButtonState("Jump", GameKey::Jump);
-	DrawButtonState("Dash", GameKey::Dash);
-	DrawButtonState("Crouch", GameKey::Crouch);
-	DrawButtonState("Up", GameKey::Up);
-	DrawButtonState("Down", GameKey::Down);
-	DrawButtonState("Left", GameKey::Left);
-	DrawButtonState("Right", GameKey::Right);
+	DrawButtonState("Jump", GameAction::Jump);
+	DrawButtonState("Dash", GameAction::Dash);
+	DrawButtonState("Crouch", GameAction::Crouch);
+	DrawButtonState("Up", GameAction::Up);
+	DrawButtonState("Down", GameAction::Down);
+	DrawButtonState("Left", GameAction::Left);
+	DrawButtonState("Right", GameAction::Right);
 
 	// JSON保存のテスト用
-	if (inputManager.GetButtonDown(GameKey::Zoom))
+	if (inputManager.GetButtonDown(GameAction::Zoom))
 	{
 		DrawString(200, 100, "Save Config Triggered!", red);
 		inputManager.SaveConfig();
@@ -169,9 +173,10 @@ void GameApp::Draw()
 
 
 	// キーコンフィグを変更できるか確認する
-	static bool isRebindingJump{ false }; // 新しくキーを設定するかどうかを判定するフラグ(簡易的なテストなのでstatic)
+	static bool isRebindingJumpKey{ false }; // 新しくキーを設定するかどうかを判定するフラグ(簡易的なテストなのでstatic)
+	static bool isRebindingDashPad{ false }; // 新しくダッシュボタンをパッドで設定するかどうかを判定する
 
-	if (isRebindingJump)
+	if (isRebindingJumpKey)
 	{
 		// 変更モード中を表示
 		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, ">> Press Any Key for [JUMP] <<", red);
@@ -182,13 +187,13 @@ void GameApp::Draw()
 		if (newKey != -1 && newKey != KEY_INPUT_C)
 		{
 			// 入力されたキーに変更
-			inputManager.SetBinding(GameKey::Jump, newKey, PAD_INPUT_A);
+			inputManager.SetBindingKey(GameAction::Jump, newKey);
 
 			// 保存する
 			inputManager.SaveConfig();
 
 			// 変更モード終了
-			isRebindingJump = false;
+			isRebindingJumpKey = false;
 		}
 	}
 	else
@@ -199,10 +204,38 @@ void GameApp::Draw()
 		// Cキーで変更モードへ
 		if (CheckHitKey(KEY_INPUT_C))
 		{
-			isRebindingJump = true;
+			isRebindingJumpKey = true;
 		}
 	}
 
+	inputDebugDrawPos.y += lineHight;
+
+	if (isRebindingDashPad)
+	{
+		// ボタン変更状態
+		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, ">> Press Any Pad Button for [Dash] <<", red);
+		
+		int newButton{ inputManager.GetAnyPressedButton() }; // 入力されたボタンを受け取る
+
+		if (newButton != 0 && newButton != PadCode::TRIGGER_L) // 新しいボタンが押されているかつ左スティック以外の場合
+		{
+			inputManager.SetBindingPad(GameAction::Dash, newButton); // 新しいボタンを設定
+
+			inputManager.SaveConfig(); // 新しいボタンをセーブ
+
+			isRebindingDashPad = false; // キーコン更新を終了
+		}
+	}
+	else
+	{
+		// 通常状態
+		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "[ShoulderL] Button : Change 'Dash' Binding", white);
+
+		if ((inputManager.GetAnyPressedButton() & PadCode::TRIGGER_L) != 0) // テストようにトリガーLボタンで変更できるようにする
+		{
+			isRebindingDashPad = true;
+		}
+	} 
 #endif // _DEBUG
 
 
