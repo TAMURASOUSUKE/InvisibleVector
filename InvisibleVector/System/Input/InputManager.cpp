@@ -46,12 +46,12 @@ void InputManager::UpdateGameKey()
 			設定されているマスクそのものと比較する必要がある
 		*/
 		// 左
-		if ((binding.padButtonMask & binding.padButtonMask) == PadCode::TRIGGER_L)
+		if (binding.padButtonMask == PadCode::TRIGGER_L)
 		{
 			if(xinputState.LeftTrigger > padTriggerDeadZone) isDown = true;
 		}
 		// 右
-		else if ((binding.padButtonMask & binding.padButtonMask) == PadCode::TRIGGER_R)
+		else if (binding.padButtonMask == PadCode::TRIGGER_R)
 		{
 			if(xinputState.RightTrigger > padTriggerDeadZone) isDown = true;
 		}
