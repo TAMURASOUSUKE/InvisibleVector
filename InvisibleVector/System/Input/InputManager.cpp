@@ -124,14 +124,14 @@ void InputManager::AddKeyBinding(GameKey action, int key)
 void InputManager::SetDefaultBindings()
 {
 	// ----------------[EN] Setting key [JP]キーの割り当てを行う---------------
-	SetBinding(GameKey::Up, KEY_INPUT_W, PAD_INPUT_UP);
-	SetBinding(GameKey::Down, KEY_INPUT_S, PAD_INPUT_DOWN);
-	SetBinding(GameKey::Right, KEY_INPUT_D, PAD_INPUT_RIGHT);
-	SetBinding(GameKey::Left, KEY_INPUT_A, PAD_INPUT_LEFT);
-	SetBinding(GameKey::Jump, KEY_INPUT_SPACE, PAD_INPUT_A);
-	SetBinding(GameKey::Dash, KEY_INPUT_LSHIFT, PAD_INPUT_C); // C = Xボタン
-	SetBinding(GameKey::Crouch, KEY_INPUT_LCONTROL, PAD_INPUT_9); // 左スティック押し込み
-	SetBinding(GameKey::Zoom, KEY_INPUT_F, PAD_INPUT_L);
+	SetBinding(GameKey::Up, KEY_INPUT_W, PadCode::PadUp);
+	SetBinding(GameKey::Down, KEY_INPUT_S, PadCode::PadDown);
+	SetBinding(GameKey::Right, KEY_INPUT_D, PadCode::PadRight);
+	SetBinding(GameKey::Left, KEY_INPUT_A,PadCode::PadLeft);
+	SetBinding(GameKey::Jump, KEY_INPUT_SPACE, PadCode::South);
+	SetBinding(GameKey::Dash, KEY_INPUT_LSHIFT, PadCode::West); // C = Xボタン
+	SetBinding(GameKey::Crouch, KEY_INPUT_LCONTROL, PadCode::StickClickL); // 左スティック押し込み
+	SetBinding(GameKey::Zoom, KEY_INPUT_F, PadCode::ShoulderL);
 
 	// ----------------[EN] Sub key [JP] サブキー -----------------------------
 	AddKeyBinding(GameKey::Up, KEY_INPUT_UP);
@@ -181,6 +181,7 @@ void InputManager::LoadConfig()
 		SaveConfig(); // セーブ
 		return;
 	}
+
 
 	/*
 		Jsonに破損等開けない理由があった場合に対応するためtry-catchを使う
@@ -262,5 +263,5 @@ int InputManager::GetAnyPressedKey() const
 // 押されたボタンを返す
 int InputManager::GetAnyPressedButton() const
 {
-	
+	return 0;
 }

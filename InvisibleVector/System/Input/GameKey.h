@@ -16,10 +16,10 @@ namespace PadCode {
 	constexpr int TriggerL = PAD_INPUT_L;
 	constexpr int TriggerR = PAD_INPUT_R;
 
-	constexpr int DPadUp = PAD_INPUT_UP;
-	constexpr int DPadDown = PAD_INPUT_DOWN;
-	constexpr int DPadLeft = PAD_INPUT_LEFT;
-	constexpr int DPadRight = PAD_INPUT_RIGHT;
+	constexpr int PadUp = PAD_INPUT_UP;
+	constexpr int PadDown = PAD_INPUT_DOWN;
+	constexpr int PadLeft = PAD_INPUT_LEFT;
+	constexpr int PadRight = PAD_INPUT_RIGHT;
 
 	constexpr int StickClickL = PAD_INPUT_9;
 	constexpr int StickClickR = PAD_INPUT_10;
