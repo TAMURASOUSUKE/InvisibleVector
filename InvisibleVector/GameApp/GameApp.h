@@ -2,6 +2,7 @@
 #include <memory>
 #include "SystemConstant.h"
 #include "../System/FPS/FrameController.h"
+#include "../System/Input/InputManager.h"
 #include "../Objects/Base/ObjectManager.h"
 #include "../Objects/Base/ObjectFactory.h"
 
@@ -50,7 +51,8 @@ private:
 	std::unique_ptr<ObjectFactory> objectFactory{};
 
 
-	FrameController frameController{ USE_FPS };
+	FrameController frameController{ USE_FPS }; // ƒtƒŒ[ƒ€ŠÇ—
+	InputManager inputManager; // “ü—ÍŠÇ—
 	unsigned int white{0};
 	unsigned int red{0};
 };

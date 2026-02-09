@@ -69,6 +69,7 @@ void GameApp::Run()
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		frameController.BeginFrame();
+		inputManager.Update(); // 入力更新(システムの更新なのでUpdate関数の外側)
 
 		Update();
 		Draw();
@@ -80,6 +81,8 @@ void GameApp::Run()
 // [EN] Update Game Logic. [JP] ゲームロジックの更新
 void GameApp::Update()
 {
+
+	// FixedUpdate更新
 	while (frameController.IsFixedUpdateRequired())
 	{
 		objectManager.FixedUpdate();
@@ -87,8 +90,10 @@ void GameApp::Update()
 		frameController.ConsumeFixedTime();
 	}
 
+	// オブジェクト更新
 	objectManager.Update();
 
+	// 使わなくなったデータ等を消す
 	objectManager.Refresh();
 }
 
@@ -109,17 +114,94 @@ void GameApp::Draw()
 #ifdef _DEBUG
 
 
-#endif // _DEBUG
-
 // ======================================================== [EN] Draw 2D area FPS. [JP] 2D領域にFPSを描画する ==================================================
 
 	SetUseZBuffer3D(false); // [EN] Disable Z-buffer for 2D drawing. [JP] 2D描画のためZバッファを無効化する
 	SetWriteZBuffer3D(false); // [EN] Disable writing to Z-buffer for 2D drawing. [JP] 2D描画のためZバッファへの書き込みを無効化する
 
-#ifdef _DEBUG
 
 	DrawFormatString(DEBUG_FPS_POSITION_X, DEBUG_FPS_POSITION_Y, GetColor(255, 255, 255), "現在のFPS : %.1f", frameController.GetCurrentFPS());
 	DrawFormatString(DEBUG_DELTA_TIME_POSITION_X, DEBUG_DELTA_TIME_POSITION_Y, GetColor(255, 255, 255), "Delta Time : %.6f", frameController.GetDeltaTime());
+
+	Vector2 inputDebugDrawPos{ 20.0f, 100.0f };
+	float lineHight{ 20.0f };
+
+	DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "--- Input Debug ---", white);
+	inputDebugDrawPos.y += lineHight;
+
+	// 軸入力の確認
+	Vector2 axis{ inputManager.GetAxis() };
+	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Axis: (%.2f, %.2f)", axis.x, axis.y);
+
+	inputDebugDrawPos.y += lineHight;
+
+	// ボタンの確認
+	// 押されていれば文字が赤くなるようにする
+	auto DrawButtonState = [&](const char* name, GameKey key)
+		{
+			unsigned int color = inputManager.GetButtonStay(key) ? red : white; // 押し続けていれば赤
+
+			const char* status = ""; // ステータスを文字列にする
+			if (inputManager.GetButtonDown(key)) status = "DWN";
+			if (inputManager.GetButtonUp(key)) status = "UP";
+
+			DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, color, "[%s] %s %s", status, name, inputManager.GetButtonStay(key) ? "ON" : "off");
+
+			inputDebugDrawPos.y += lineHight;
+
+		};
+
+	// 主要なキーを表示
+	DrawButtonState("Jump", GameKey::Jump);
+	DrawButtonState("Dash", GameKey::Dash);
+	DrawButtonState("Crouch", GameKey::Crouch);
+	DrawButtonState("Up", GameKey::Up);
+	DrawButtonState("Down", GameKey::Down);
+	DrawButtonState("Left", GameKey::Left);
+	DrawButtonState("Right", GameKey::Right);
+
+	// JSON保存のテスト用
+	if (inputManager.GetButtonDown(GameKey::Zoom))
+	{
+		DrawString(200, 100, "Save Config Triggered!", red);
+		inputManager.SaveConfig();
+	}
+
+
+	// キーコンフィグを変更できるか確認する
+	static bool isRebindingJump{ false }; // 新しくキーを設定するかどうかを判定するフラグ(簡易的なテストなのでstatic)
+
+	if (isRebindingJump)
+	{
+		// 変更モード中を表示
+		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, ">> Press Any Key for [JUMP] <<", red);
+
+		int newKey{ inputManager.GetAnyPressedKey() }; // 入力されたキーを判別し保存する
+
+		// キーが押されているかつ変更モードを起動するキー以外が押されたら登録する
+		if (newKey != -1 && newKey != KEY_INPUT_C)
+		{
+			// 入力されたキーに変更
+			inputManager.SetBinding(GameKey::Jump, newKey, PAD_INPUT_A);
+
+			// 保存する
+			inputManager.SaveConfig();
+
+			// 変更モード終了
+			isRebindingJump = false;
+		}
+	}
+	else
+	{
+		// 通常時の文字列表示
+		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "[C] key : Change 'Jump' Binding", white);
+
+		// Cキーで変更モードへ
+		if (CheckHitKey(KEY_INPUT_C))
+		{
+			isRebindingJump = true;
+		}
+	}
 
 #endif // _DEBUG
 

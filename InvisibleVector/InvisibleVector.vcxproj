@@ -146,6 +146,7 @@
     <ClCompile Include="System\FPS\FrameController.cpp" />
     <ClCompile Include="System\FPS\FrameRateCounter.cpp" />
     <ClCompile Include="System\FPS\FrameRateLimiter.cpp" />
+    <ClCompile Include="System\Input\InputManager.cpp" />
     <ClCompile Include="System\Time\TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +164,8 @@
     <ClInclude Include="System\FPS\FrameController.h" />
     <ClInclude Include="System\FPS\FrameRateCounter.h" />
     <ClInclude Include="System\FPS\FrameRateLimiter.h" />
+    <ClInclude Include="System\Input\GameKey.h" />
+    <ClInclude Include="System\Input\InputManager.h" />
     <ClInclude Include="System\Time\TimeManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
