@@ -54,12 +54,34 @@ void InputManager::UpdateGameKey()
 		// 左
 		if (binding.padButtonMask == PadCode::TRIGGER_L)
 		{
-			if(xinputState.LeftTrigger > padTriggerDeadZone) isDown = true;
+			/*
+				Xboxコントローラーはtriggerがアナログ式のため
+				取得した値をデッドゾーンで比較するが、
+				任天堂のプロコンなどはZRやZLがデジタルボタンなので
+				0,1で評価する
+			*/
+			if (xinputState.LeftTrigger > padTriggerDeadZone)
+			{
+				isDown = true;
+			}
+			else if ((currentPadInput & PadCode::TRIGGER_L) != 0)
+			{
+				isDown = true;
+			}
 		}
 		// 右
 		else if (binding.padButtonMask == PadCode::TRIGGER_R)
 		{
-			if(xinputState.RightTrigger > padTriggerDeadZone) isDown = true;
+			// Xboxなど
+			if (xinputState.RightTrigger > padTriggerDeadZone)
+			{
+				isDown = true;
+			}
+			// switchプロコンなど
+			else if ((currentPadInput & PadCode::TRIGGER_R) != 0)
+			{
+				isDown = true;
+			}
 		}
 		// それ以外ゲームパッドのボタン判定
 		// AND演算を行い結果が0でなければ押されているとする
