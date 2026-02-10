@@ -15,6 +15,9 @@ InputManager::InputManager()
 	currentKeyBuffer.fill(0);
 	currentStates.fill(false);
 	prevStates.fill(false);
+
+	// マウスの座標を最初に取得
+	GetMousePoint(&prevMousePosX, &prevMousePosY);
 }
 
 void InputManager::Update()
@@ -26,8 +29,11 @@ void InputManager::Update()
 	currentPadInput = GetJoypadInputState(DX_INPUT_PAD1); // [EN] Get input state of pad [JP] パッドの現在の入力状態を取得
 	GetJoypadXInputState(DX_INPUT_PAD1, &xinputState); // Trigger等の状態を取得
 
-	// [EN] Convert Concrete to Abstract [JP] 具体から抽象へ変換
+	// ボタン更新
 	UpdateGameKey();
+
+	// カメラ更新
+	UpdateCameraInput();
 
 }
 
@@ -97,6 +103,49 @@ void InputManager::UpdateGameKey()
 
 	// 正規化処理
 	axis.Normalize();
+}
+
+void InputManager::UpdateCameraInput()
+{
+	cameraAxis.Zero(); //毎フレームリセット
+
+	// マウス処理
+	int mouseX;
+	int mouseY;
+
+	// 現在の位置を取得
+	GetMousePoint(&mouseX, &mouseY);
+
+	// 移動量を現在 - 過去で求める	
+	Vector2 delta{ static_cast<float>(mouseX - prevMousePosX), static_cast<float>(mouseY - prevMousePosY) };
+
+	// 感度を考慮し加算
+	cameraAxis = delta * mouseSensibility;
+
+	// 現在位置を保存
+	prevMousePosX = mouseX;
+	prevMousePosY = mouseY;
+
+	// スティック処理
+	float stickX = static_cast<float>(xinputState.ThumbRX);
+	float stickY = static_cast<float>(xinputState.ThumbRY);
+
+	// デッドゾーン処理(少し倒した状態なら無視するようにする)
+	if (std::abs(stickX) < stickRDeadZone) stickX = 0.0f;
+	if (std::abs(stickY) < stickRDeadZone) stickY = 0.0f;
+
+	// sitc変数をVector2にまとめつつ値を-1.0～1.0まで丸める
+	Vector2 stick{ stickX / MAX_XINPUT_VALUE, stickY / MAX_XINPUT_VALUE };
+
+	// 実際の加算
+	cameraAxis += stick * stickSensibility;
+	
+	// 値が大きくなりすぎないように-1.0 ～ 1.0に丸める
+	if (cameraAxis.x > 1.0f) cameraAxis.x = 1.0f;
+	if (cameraAxis.x < -1.0f) cameraAxis.x = -1.0f;
+	if (cameraAxis.y > 1.0f) cameraAxis.y = 1.0f;
+	if (cameraAxis.y < -1.0f) cameraAxis.y = -1.0f;
+
 }
 
 // 押している間

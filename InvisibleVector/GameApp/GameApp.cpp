@@ -217,7 +217,7 @@ void GameApp::Draw()
 		
 		int newButton{ inputManager.GetAnyPressedButton() }; // 入力されたボタンを受け取る
 
-		if (newButton != 0 && newButton != PadCode::TRIGGER_L) // 新しいボタンが押されているかつ左スティック以外の場合
+		if (newButton != 0 && newButton != PadCode::TRIGGER_L) // 新しいボタンが押されているかつ左トリガー以外の場合
 		{
 			inputManager.SetBindingPad(GameAction::Dash, newButton); // 新しいボタンを設定
 
@@ -229,13 +229,30 @@ void GameApp::Draw()
 	else
 	{
 		// 通常状態
-		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "[ShoulderL] Button : Change 'Dash' Binding", white);
+		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "[TriggerL] Button : Change 'Dash' Binding", white);
 
-		if ((inputManager.GetAnyPressedButton() & PadCode::TRIGGER_L) != 0) // テストようにトリガーLボタンで変更できるようにする
+		if ((inputManager.GetAnyPressedButton() & PadCode::TRIGGER_L) != 0) // テスト用にトリガーLボタンで変更できるようにする
 		{
 			isRebindingDashPad = true;
 		}
 	} 
+
+	inputDebugDrawPos.y += lineHight;
+
+	// カメラ用Axisデバッグ
+	Vector2 camAxis{ inputManager.GetCameraAxis() }; // Axisを正しく取得できるかをテストする変数
+	DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "---- Camera Input ----", white);
+	inputDebugDrawPos.y += lineHight;
+	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Camera Axis: (%.3f, %.3f)", camAxis.x, camAxis.y);
+
+	// マウス座標も表示しておく
+	inputDebugDrawPos.y += lineHight;
+	int mx;
+	int my;
+	GetMousePoint(&mx, &my);
+	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Raw MousePosition: (%.3f, %.3f)", mx, my);
+
+
 #endif // _DEBUG
 
 

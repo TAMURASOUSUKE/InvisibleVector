@@ -3,6 +3,7 @@
 // ゲームの入力に関する情報をまとめたヘッダ
 
 constexpr int DEFAULT_TRIGGER_DEAD_ZONE = 128;
+constexpr float MAX_XINPUT_VALUE = 32767.0f;
 
 // 入力名を抽象化しわかりやすくするための名前空間
 namespace PadCode {

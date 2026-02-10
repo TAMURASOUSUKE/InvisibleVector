@@ -27,6 +27,8 @@ public:
 	/// <returns>[EN] Normalized vector [JP] 正規化されたベクトル</returns>
 	const Vector2& GetAxis() const { return axis; }
 
+	const Vector2& GetCameraAxis() const { return cameraAxis; }
+
 	/// <summary>
 	/// [EN] Get the trigger pressing depth
 	/// [JP] トリガーを押す深さを取得する
@@ -88,6 +90,12 @@ private:
 	/// </summary>
 	void UpdateGameKey();
 
+	/// <summary>
+	/// [EN] Update camera axis from Mouse and Right Stick
+	/// [JP] マウスと右スティックからカメラ入力を更新する
+	/// </summary>
+	void UpdateCameraInput();
+
 	// デフォルトのキーコンフィグ設定(ファイルがないときなどに使用する)
 	void SetDefaultBindings();
 
@@ -99,8 +107,15 @@ private:
 private:
 	// コンフィグファイルへのパス
 	const std::string configFilePath = "key_config.json";
+
 	int currentPadInput{ 0 }; // [EN] GamePad [JP] ゲームパッド
 	int padTriggerDeadZone{ 0 }; // [EN] Trigger press depth [JP] トリガーを押す深さ
+	int prevMousePosX{ 0 }; // マウスのX座標
+	int prevMousePosY{ 0 }; // マウスのY座標
+	int stickRDeadZone{ 5000 }; // Rスティックを動かすときのデッドゾーン
+
+	float mouseSensibility{ 0.005f }; // マウス感度
+	float stickSensibility{ 1.0f }; // スティック感度
 
 	// GameKey::Countの分(状態の数)の長さの配列を作る
 	std::array<bool, static_cast<int>(GameAction::Count)> currentStates; // [EN] Now State [JP] 現在の状態
@@ -109,6 +124,7 @@ private:
 	std::array<char, 256> currentKeyBuffer; // [EN] Keyboard [JP] キーボード
 
 	Vector2 axis{0.0f, 0.0f}; // [EN] Stick value [JP] スティックの値
+	Vector2 cameraAxis{ 0.0f, 0.0f }; // [EN] Camera input value [JP] カメラへの入力値
 
 	XINPUT_STATE xinputState; // Triggerなどのボタンを操作するための変数
 };
