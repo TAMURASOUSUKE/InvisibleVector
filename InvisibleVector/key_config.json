@@ -1,55 +1,139 @@
 {
-    "Crouch": {
-        "keys": [
-            29
-        ],
-        "pad": 8192
+    "Game": {
+        "Crouch": {
+            "keys": [
+                29
+            ],
+            "pad": [
+                8192,
+                4
+            ]
+        },
+        "Dash": {
+            "keys": [
+                42
+            ],
+            "pad": [
+                64
+            ]
+        },
+        "Down": {
+            "keys": [
+                31,
+                208
+            ],
+            "pad": [
+                1
+            ]
+        },
+        "Jump": {
+            "keys": [
+                57
+            ],
+            "pad": [
+                16
+            ]
+        },
+        "Left": {
+            "keys": [
+                30,
+                203
+            ],
+            "pad": [
+                2
+            ]
+        },
+        "Right": {
+            "keys": [
+                32,
+                205
+            ],
+            "pad": [
+                4
+            ]
+        },
+        "Up": {
+            "keys": [
+                17,
+                200
+            ],
+            "pad": [
+                8
+            ]
+        },
+        "Zoom": {
+            "keys": [
+                33
+            ],
+            "pad": [
+                256
+            ]
+        }
     },
-    "Dash": {
-        "keys": [
-            42
-        ],
-        "pad": 2048
-    },
-    "Down": {
-        "keys": [
-            31,
-            208
-        ],
-        "pad": 1
-    },
-    "Jump": {
-        "keys": [
-            57
-        ],
-        "pad": 16
-    },
-    "Left": {
-        "keys": [
-            30,
-            203
-        ],
-        "pad": 2
-    },
-    "Right": {
-        "keys": [
-            32,
-            205
-        ],
-        "pad": 4
-    },
+    "MouseSensibility": 0.004999999888241291,
+    "RightStickDeadZone": 5000,
+    "RightStickSensibility": 1.0,
     "TriggerDeadZone": 128,
-    "Up": {
-        "keys": [
-            17,
-            200
-        ],
-        "pad": 8
-    },
-    "Zoom": {
-        "keys": [
-            33
-        ],
-        "pad": 256
+    "UI": {
+        "Cancel": {
+            "keys": [
+                16
+            ],
+            "pad": [
+                16
+            ]
+        },
+        "Decide": {
+            "keys": [
+                18
+            ],
+            "pad": [
+                32
+            ]
+        },
+        "Down": {
+            "keys": [
+                31,
+                208
+            ],
+            "pad": [
+                1
+            ]
+        },
+        "Left": {
+            "keys": [
+                30,
+                203
+            ],
+            "pad": [
+                2
+            ]
+        },
+        "Pause": {
+            "keys": [
+                1
+            ],
+            "pad": [
+                8192
+            ]
+        },
+        "Right": {
+            "keys": [
+                32,
+                205
+            ],
+            "pad": [
+                4
+            ]
+        },
+        "Up": {
+            "keys": [
+                17,
+                200
+            ],
+            "pad": [
+                8
+            ]
+        }
     }
 }

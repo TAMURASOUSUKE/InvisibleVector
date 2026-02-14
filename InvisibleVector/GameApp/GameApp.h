@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "SystemConstant.h"
+#include "GameConstant.h"
 #include "../System/FPS/FrameController.h"
 #include "../System/Input/InputManager.h"
 #include "../Objects/Base/ObjectManager.h"
@@ -52,7 +53,7 @@ private:
 
 
 	FrameController frameController{ USE_FPS }; // ƒtƒŒ[ƒ€ŠÇ—
-	InputManager inputManager; // “ü—ÍŠÇ—
+	InputManager inputManager{SCREEN_WIDTH, SCREEN_HEIGHT}; // “ü—ÍŠÇ—
 	unsigned int white{0};
 	unsigned int red{0};
 };

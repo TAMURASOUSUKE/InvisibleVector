@@ -1,6 +1,6 @@
 #include "DxLib.h"
 #include <timeapi.h>
-#include "GameConstant.h"
+#include <string>
 #include "../Math/Vector_Dxlib.h"
 #include "GameApp.h"
 
@@ -119,6 +119,11 @@ void GameApp::Draw()
 	SetUseZBuffer3D(false); // [EN] Disable Z-buffer for 2D drawing. [JP] 2D描画のためZバッファを無効化する
 	SetWriteZBuffer3D(false); // [EN] Disable writing to Z-buffer for 2D drawing. [JP] 2D描画のためZバッファへの書き込みを無効化する
 
+	inputManager.SetMouseSensibility();
+	inputManager.SetStickDeadZone();
+	inputManager.SetStickSensibility();
+	inputManager.SetTriggerDeadZone();
+
 
 	DrawFormatString(DEBUG_FPS_POSITION_X, DEBUG_FPS_POSITION_Y, GetColor(255, 255, 255), "現在のFPS : %.1f", frameController.GetCurrentFPS());
 	DrawFormatString(DEBUG_DELTA_TIME_POSITION_X, DEBUG_DELTA_TIME_POSITION_Y, GetColor(255, 255, 255), "Delta Time : %.6f", frameController.GetDeltaTime());
@@ -127,6 +132,29 @@ void GameApp::Draw()
 	float lineHight{ 20.0f };
 
 	DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "--- Input Debug ---", white);
+	inputDebugDrawPos.y += lineHight;
+
+	// 現在の状態入力状態を表示
+	std::string currentInputState{ "" };
+
+	switch (inputManager.GetInputMode())
+	{
+	case InputMode::Game:
+		currentInputState = "GameMode";
+		break;
+	case InputMode::Menu:
+		currentInputState = "MenuMode";
+		break;
+	case InputMode::Config:
+		currentInputState = "ConfigMode";
+		break;
+	default:
+		currentInputState = "Mode None";
+		break;
+	}
+
+	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Current Mode : %s", currentInputState.c_str());
+
 	inputDebugDrawPos.y += lineHight;
 
 	// 軸入力の確認
@@ -141,7 +169,7 @@ void GameApp::Draw()
 
 	// ボタンの確認
 	// 押されていれば文字が赤くなるようにする
-	auto DrawButtonState = [&](const char* name, GameAction key)
+	auto DrawButtonState = [&](const char* name, auto key)
 		{
 			unsigned int color = inputManager.GetButtonStay(key) ? red : white; // 押し続けていれば赤
 
@@ -155,17 +183,25 @@ void GameApp::Draw()
 
 		};
 
+
 	// 主要なキーを表示
-	DrawButtonState("Jump", GameAction::Jump);
-	DrawButtonState("Dash", GameAction::Dash);
-	DrawButtonState("Crouch", GameAction::Crouch);
-	DrawButtonState("Up", GameAction::Up);
-	DrawButtonState("Down", GameAction::Down);
-	DrawButtonState("Left", GameAction::Left);
-	DrawButtonState("Right", GameAction::Right);
+	DrawButtonState("Game : Jump", ActionID::GameAction::Jump);
+	DrawButtonState("Game : Dash", ActionID::GameAction::Dash);
+	DrawButtonState("Game : Crouch", ActionID::GameAction::Crouch);
+	DrawButtonState("Game : Up", ActionID::GameAction::Up);
+	DrawButtonState("Game : Down", ActionID::GameAction::Down);
+	DrawButtonState("Game : Left", ActionID::GameAction::Left);
+	DrawButtonState("Game : Right", ActionID::GameAction::Right);
+	DrawButtonState("UI : Up", ActionID::UI::Up);
+	DrawButtonState("UI : Down", ActionID::UI::Down);
+	DrawButtonState("UI : Right", ActionID::UI::Right);
+	DrawButtonState("UI : Left", ActionID::UI::Left);
+	DrawButtonState("UI : Decide", ActionID::UI::Decide);
+	DrawButtonState("UI : Cancel", ActionID::UI::Cancel);
+	DrawButtonState("UI : Pause", ActionID::UI::Pause);
 
 	// JSON保存のテスト用
-	if (inputManager.GetButtonDown(GameAction::Zoom))
+	if (inputManager.GetButtonDown(ActionID::GameAction::Zoom))
 	{
 		DrawString(200, 100, "Save Config Triggered!", red);
 		inputManager.SaveConfig();
@@ -187,7 +223,7 @@ void GameApp::Draw()
 		if (newKey != -1 && newKey != KEY_INPUT_C)
 		{
 			// 入力されたキーに変更
-			inputManager.SetBindingKey(GameAction::Jump, newKey);
+			inputManager.SetBindingKey(ActionID::GameAction::Jump, newKey);
 
 			// 保存する
 			inputManager.SaveConfig();
@@ -219,7 +255,7 @@ void GameApp::Draw()
 
 		if (newButton != 0 && newButton != PadCode::TRIGGER_L) // 新しいボタンが押されているかつ左トリガー以外の場合
 		{
-			inputManager.SetBindingPad(GameAction::Dash, newButton); // 新しいボタンを設定
+			inputManager.SetBindingPad(ActionID::GameAction::Dash, newButton); // 新しいボタンを設定
 
 			inputManager.SaveConfig(); // 新しいボタンをセーブ
 
@@ -239,6 +275,16 @@ void GameApp::Draw()
 
 	inputDebugDrawPos.y += lineHight;
 
+	// モード変更
+	if (CheckHitKey(KEY_INPUT_M))
+	{
+		inputManager.SetInputMode(InputMode::Menu);
+	}
+	else if (CheckHitKey(KEY_INPUT_G))
+	{
+		inputManager.SetInputMode(InputMode::Game);
+	}
+
 	// カメラ用Axisデバッグ
 	Vector2 camAxis{ inputManager.GetCameraAxis() }; // Axisを正しく取得できるかをテストする変数
 	DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "---- Camera Input ----", white);
@@ -252,6 +298,22 @@ void GameApp::Draw()
 	GetMousePoint(&mx, &my);
 	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Raw MousePosition: (%.3f, %.3f)", mx, my);
 
+	inputDebugDrawPos.y += lineHight;
+
+	// 各種設定値表示
+	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "TriggerDeadZone : %d", inputManager.GetTriggerDeadZone());
+
+	inputDebugDrawPos.y += lineHight;
+
+	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "RightStickDeadZone : %d", inputManager.GetStickDeadZone());
+
+	inputDebugDrawPos.y += lineHight;
+
+	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "RightStickSensibility: %.3f", inputManager.GetStickSensibility());
+
+	inputDebugDrawPos.y += lineHight;
+
+	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "RightStickSensibility: %.3f", inputManager.GetMouseSensibility());
 
 #endif // _DEBUG
 
