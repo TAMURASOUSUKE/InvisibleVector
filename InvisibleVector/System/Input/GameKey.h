@@ -18,7 +18,7 @@ constexpr float MAX_STICK_SENSIBILITY = 5.0f;
 constexpr float MIN_STICK_SENSIBILITY = 0.1f;
 constexpr float ADJ_STICK_SENSIBILITY = 0.3f;
 constexpr float MAX_XINPUT_VALUE = 32767.0f;
-constexpr float ADJ_MOUSE_SENSIBILITY = 0.5f; // マウス感度を調整するときに使う値
+constexpr float ADJ_MOUSE_SENSIBILITY = 0.0005f; // マウス感度を調整するときに使う値
 
 constexpr float MAX_MOUSE_SENSIBILITY = 0.5f; // 最大マウス感度
 constexpr float MIN_MOUSE_SEBSIBILITY = 0.001; // 最小マウス感度
