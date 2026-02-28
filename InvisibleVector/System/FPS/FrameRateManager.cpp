@@ -1,22 +1,22 @@
 #include <algorithm>
 #include "SystemConstant.h"
 #include "../Time/TimeManager.h"
-#include "FrameController.h"
+#include "FrameRateManager.h"
 
 
-FrameController::FrameController(int FPS) : limiter{ FPS }
+FrameRateManager::FrameRateManager(int FPS) : limiter{ FPS }
 {
 	fixedDeltaTime = FIXED_DELTA_TIME;
 	TimeManager::Bind(&deltaTime, &fixedDeltaTime, &currentFPS, &alpha);
 }
 
 // [EN] Zero clear of Bind function [JP] 結合用関数を終了時に0でクリアする
-FrameController::~FrameController()
+FrameRateManager::~FrameRateManager()
 {
 	TimeManager::Bind(&SEAF_ZERO, &SEAF_ZERO, &SEAF_ZERO, &SEAF_ZERO);
 }
 
-void FrameController::BeginFrame()
+void FrameRateManager::BeginFrame()
 {
 	// [EN] Get now time. [JP] 現在の時間を取得
 	auto now = steady_clock::now();
@@ -51,26 +51,26 @@ void FrameController::BeginFrame()
 /// [EN] A function to check the percentage of the remaining time in a fixed step
 /// [JP] 残り時間が固定ステップの何割かを調べる関数
 /// </summary>
-void FrameController::CalculateAlpha()
+void FrameRateManager::CalculateAlpha()
 {
 	alpha = accumulator / fixedDeltaTime;
 }
 
 
-void FrameController::EndFrame()
+void FrameRateManager::EndFrame()
 {
 	limiter.Wait(startTime);
 
 	counter.Update(startTime);
 }
 
-void FrameController::ConsumeFixedTime()
+void FrameRateManager::ConsumeFixedTime()
 {
 	accumulator -= FIXED_DELTA_TIME;
 	CalculateAlpha();
 }
 
-bool FrameController::IsFixedUpdateRequired()
+bool FrameRateManager::IsFixedUpdateRequired()
 {
 	return accumulator >= FIXED_DELTA_TIME;
 }

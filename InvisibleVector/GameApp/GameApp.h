@@ -2,7 +2,7 @@
 #include <memory>
 #include "SystemConstant.h"
 #include "GameConstant.h"
-#include "../System/FPS/FrameController.h"
+#include "../System/FPS/FrameRateManager.h"
 #include "../System/Input/InputManager.h"
 #include "../Objects/Base/ObjectManager.h"
 #include "../Objects/Base/ObjectFactory.h"
@@ -52,8 +52,13 @@ private:
 	std::unique_ptr<ObjectFactory> objectFactory{};
 
 
-	FrameController frameController{ USE_FPS }; // フレーム管理
+	FrameRateManager frameController{ USE_FPS }; // フレーム管理
 	InputManager inputManager{SCREEN_WIDTH, SCREEN_HEIGHT}; // 入力管理
-	unsigned int white{0};
-	unsigned int red{0};
+
+#ifdef _DEBUG
+
+	unsigned int white{ 0 };
+	unsigned int red{ 0 };
+
+#endif // _DEBUG
 };

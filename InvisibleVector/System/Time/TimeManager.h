@@ -1,6 +1,6 @@
 #pragma once
 
-class FrameController;
+class FrameRateManager;
 
 /// <summary>
 /// [EN] Manage of delta time and fixed delta time. [JP] DeltaTime‚ÆFixedDeltaTime‚ğŠÇ—‚·‚é
@@ -66,6 +66,6 @@ private:
 	static const float* fpsPtr;
 	static const float* alphaPtr;
 
-	friend class FrameController;
+	friend class FrameRateManager;
 
 };
