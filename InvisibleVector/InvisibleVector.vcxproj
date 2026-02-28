@@ -78,7 +78,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -96,7 +96,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -130,7 +130,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
