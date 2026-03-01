@@ -6,7 +6,7 @@
 
 using json = nlohmann::json;
 
-InputManager::InputManager(int windowWidth, int windowHeight) : windowWidth{windowWidth}, windowHeight{windowHeight}
+InputManager::InputManager()
 {
 	// 最初にデータをロードする
 	LoadConfig();
@@ -106,7 +106,7 @@ void InputManager::UpdateGameKey()
 						isDown = true; // 押されている場合はtrueに
 					}
 				}
-				
+
 
 				// まだ押されていなかったらキーボードを判定する
 				if (!isDown)
@@ -139,7 +139,20 @@ void InputManager::UpdateGameKey()
 	auto Index = [](ActionID::GameAction key) { return static_cast<int>(key); };
 
 	// 初期化
-	axis.Zero();
+	axis = axis.Zero();
+
+	// スティック処理
+	float stickX = static_cast<float>(xinputState.ThumbLX);
+	float stickY = static_cast<float>(xinputState.ThumbLY);
+
+	// デッドゾーン処理(少し倒した状態なら無視するようにする)
+	if (std::abs(stickX) < stickRDeadZone) stickX = 0.0f;
+	if (std::abs(stickY) < stickRDeadZone) stickY = 0.0f;
+
+	// sitc変数をVector2にまとめつつ値を-1.0～1.0まで丸める
+	Vector2 stick{ stickX / MAX_XINPUT_VALUE, stickY / MAX_XINPUT_VALUE };
+	axis += stick * stickSensibility;
+	//axis += { stickX,stickY };
 
 	// 移動ベクトル作成
 	if (currentGameStates[Index(ActionID::GameAction::Up)]) axis.y += 1.0f;
@@ -165,7 +178,7 @@ void InputManager::UpdateCameraInput()
 	GetMousePoint(&mouseX, &mouseY);
 
 	// 移動量を現在 - 過去で求める	
-	Vector2 delta{ static_cast<float>(mouseX - prevMousePosX), static_cast<float>(mouseY - prevMousePosY) };
+	Vector2 delta{ static_cast<float>(mouseX - prevMousePosX), -static_cast<float>(mouseY - prevMousePosY) };
 
 	// 感度を考慮し加算
 	cameraAxis = delta * mouseSensibility;
@@ -187,12 +200,12 @@ void InputManager::UpdateCameraInput()
 
 	// 実際の加算
 	cameraAxis += stick * stickSensibility;
-	
+
 	// 値が大きくなりすぎないように-1.0 ～ 1.0に丸める
-	if (cameraAxis.x > 1.0f) cameraAxis.x = 1.0f;
-	if (cameraAxis.x < -1.0f) cameraAxis.x = -1.0f;
-	if (cameraAxis.y > 1.0f) cameraAxis.y = 1.0f;
-	if (cameraAxis.y < -1.0f) cameraAxis.y = -1.0f;
+	//if (cameraAxis.x > 1.0f) cameraAxis.x = 1.0f;
+	//if (cameraAxis.x < -1.0f) cameraAxis.x = -1.0f;
+	//if (cameraAxis.y > 1.0f) cameraAxis.y = 1.0f;
+	//if (cameraAxis.y < -1.0f) cameraAxis.y = -1.0f;
 
 	// マウスカーソルを画面中央固定する
 	if (GetMainWindowHandle() == GetForegroundWindow()) // ウィンドウがアクティブな時だけ
@@ -235,7 +248,6 @@ bool InputManager::GetButtonDown(ActionID::UI key) const
 	int i = static_cast<int>(key); // Enumをキャストしてキャッシュする
 	return currentUIStates[i] && !prevUIStates[i]; // 今はtrueかつ前フレームはfalse
 }
-
 // 離した瞬間
 bool InputManager::GetButtonUp(ActionID::GameAction key) const
 {
@@ -338,6 +350,7 @@ void InputManager::SetDefaultBindings()
 	SetBindingKey(ActionID::GameAction::Dash, KEY_INPUT_LSHIFT);
 	SetBindingKey(ActionID::GameAction::Crouch, KEY_INPUT_LCONTROL);
 	SetBindingKey(ActionID::GameAction::Zoom, KEY_INPUT_F);
+	SetBindingKey(ActionID::GameAction::Shoot, KEY_INPUT_SPACE);
 
 	SetBindingKey(ActionID::UI::Up, KEY_INPUT_W);
 	SetBindingKey(ActionID::UI::Down, KEY_INPUT_S);
@@ -354,6 +367,7 @@ void InputManager::SetDefaultBindings()
 	SetBindingPad(ActionID::GameAction::Dash, PadCode::WEST);
 	SetBindingPad(ActionID::GameAction::Crouch, PadCode::STICK_CLICK_R);
 	SetBindingPad(ActionID::GameAction::Zoom, PadCode::SHOULDER_L);
+	SetBindingPad(ActionID::GameAction::Shoot, PadCode::TRIGGER_R);
 
 	SetBindingPad(ActionID::UI::Up, PadCode::UP);
 	SetBindingPad(ActionID::UI::Down, PadCode::DOWN);
@@ -395,7 +409,7 @@ void InputManager::SaveConfig()
 
 	// 全てのアクションをループさせ、Jsonオブジェクトを作る
 	// ゲーム中
-	for (int i = 0; i < static_cast<int>(ActionID::GameAction::Count);i++)
+	for (int i = 0; i < static_cast<int>(ActionID::GameAction::Count); i++)
 	{
 		ActionID::GameAction key = static_cast<ActionID::GameAction>(i); // 現在の数をGameKey型へcastするためキャッシュ
 		std::string keyName = GameKeyToString(key); // GameKeyの名前を文字列型へ変換する
@@ -541,6 +555,7 @@ std::string InputManager::GameKeyToString(ActionID::GameAction key)
 	case ActionID::GameAction::Dash: return "Dash";
 	case ActionID::GameAction::Crouch: return "Crouch";
 	case ActionID::GameAction::Zoom: return "Zoom";
+	case ActionID::GameAction::Shoot: return "Shoot";
 	default: return "Unknown";
 	}
 }
@@ -571,6 +586,7 @@ ActionID::GameAction InputManager::StringToGameKey(const std::string& str)
 	if (str == "Dash") return ActionID::GameAction::Dash;
 	if (str == "Crouch") return ActionID::GameAction::Crouch;
 	if (str == "Zoom") return ActionID::GameAction::Zoom;
+	if (str == "Shoot") return ActionID::GameAction::Shoot;
 	return static_cast<ActionID::GameAction>(-1); // エラー用に用意
 }
 

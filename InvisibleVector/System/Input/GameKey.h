@@ -24,8 +24,7 @@ constexpr float MAX_MOUSE_SENSIBILITY = 0.5f; // 最大マウス感度
 constexpr float MIN_MOUSE_SEBSIBILITY = 0.001; // 最小マウス感度
 
 // 入力名を抽象化しわかりやすくするための名前空間
-namespace PadCode
-{
+namespace PadCode {
 	// Xboxコントローラーの配置に合わせた定義
 	constexpr int SOUTH = PAD_INPUT_A; // Aボタン (下)
 	constexpr int EAST = PAD_INPUT_B; // Bボタン (右)
@@ -54,8 +53,7 @@ namespace PadCode
 	入力デバイスを抽象化して使うため起こすアクションの名前で設定する
 */
 
-namespace ActionID
-{
+namespace ActionID {
 	enum class GameAction
 	{
 		// MoveMent(GetAxisで使う)
@@ -69,6 +67,7 @@ namespace ActionID
 		Dash, // 
 		Crouch,
 		Zoom,
+		Shoot,
 
 		// meta
 		Count, // 要素数
@@ -80,7 +79,7 @@ namespace ActionID
 		/*
 			上下左右はカーソル移動などに使う
 		*/
-		Up, 
+		Up,
 		Down,
 		Left,
 		Right,
@@ -108,7 +107,7 @@ struct InputBinding
 	// [EN] List of assigned keyboard keys(Variable length)
 	// [JP] 割り当てられたキーボードのキーリスト(可変長)
 	std::vector<int> keyboardKeys;
-	
+
 	// [EN] Gamepad button mask (bit flag)
 	// [JP] ゲームパッドのボタンマスク(ビットフラグ)
 	std::vector<int>padButtonMasks;

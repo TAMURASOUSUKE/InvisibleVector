@@ -3,7 +3,7 @@
 #include <string>
 #include "Vector_Dxlib.h"
 #include "GameKey.h"
-
+#include "GameConstant.h"
 
 /*
 	[EN] Implement Abstraction input system [JP]抽象的なインプットシステムを実装する
@@ -11,8 +11,18 @@
 class InputManager
 {
 public:
-	InputManager(int windowWidth, int windowHeight);
+private:
+	InputManager();
 	virtual ~InputManager() = default;
+
+public:
+
+	// シングルトン化
+	static InputManager& Instance()
+	{
+		static InputManager instance;
+		return instance;
+	}
 
 	/// <summary>
 	/// [EN] Update input state (Call every frame)
@@ -39,7 +49,7 @@ public:
 	/// [JP] 現在の入力状態を取得する
 	/// </summary>
 	/// <returns></returns>
-	const InputMode GetInputMode() const{ return currentMode; }
+	const InputMode GetInputMode() const { return currentMode; }
 
 	/// <summary>
 	/// [EN] Get the trigger pressing depth
@@ -61,7 +71,7 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	const float GetMouseSensibility() const { return mouseSensibility; }
-	
+
 	/// <summary>
 	/// [EN] Get the R stick sensibility
 	/// [JP] スティック感度を取得
@@ -111,7 +121,7 @@ public:
 	void SetBindingPad(ActionID::GameAction action, int padMask);
 
 	// パッドキーUI設定用のoverride関数
-	void SetBindingPad(ActionID::UI action, int padMask); 
+	void SetBindingPad(ActionID::UI action, int padMask);
 
 	/// <summary>
 	/// [EN] Change current input mode
@@ -187,8 +197,8 @@ private:
 	int prevMousePosX{ 0 }; // マウスのX座標
 	int prevMousePosY{ 0 }; // マウスのY座標
 	int stickRDeadZone{ 5000 }; // Rスティックを動かすときのデッドゾーン
-	int windowWidth{ 0 }; // 画面横幅
-	int windowHeight{ 0 }; // 画面縦幅
+	int windowWidth{ SCREEN_WIDTH }; // 画面横幅
+	int windowHeight{ SCREEN_HEIGHT }; // 画面縦幅
 
 	float mouseSensibility{ 0.005f }; // マウス感度
 	float stickSensibility{ 1.0f }; // スティック感度
@@ -205,10 +215,10 @@ private:
 	std::array<bool, static_cast<int>(ActionID::UI::Count)> currentUIStates; // [EN] Now State [JP] 現在の状態
 	std::array<bool, static_cast<int>(ActionID::UI::Count)> prevUIStates; // Preciours States [JP] 1フレーム前の状態
 	std::array<InputBinding, static_cast<int>(ActionID::UI::Count)> uiBindings; // Mapping data [JP] 全アクションのマッピングデータ
-	
+
 	std::array<char, 256> currentKeyBuffer; // [EN] Keyboard [JP] キーボード
 
-	Vector2 axis{0.0f, 0.0f}; // [EN] Stick value [JP] スティックの値
+	Vector2 axis{ 0.0f, 0.0f }; // [EN] Stick value [JP] スティックの値
 	Vector2 cameraAxis{ 0.0f, 0.0f }; // [EN] Camera input value [JP] カメラへの入力値
 
 	XINPUT_STATE xinputState; // Triggerなどのボタンを操作するための変数
