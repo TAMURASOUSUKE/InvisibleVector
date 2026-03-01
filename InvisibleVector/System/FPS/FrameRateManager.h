@@ -7,7 +7,7 @@
 /// <summary>
 /// [EN] Manage the FPS and  delta time. [JP] FPSとdeltaタイムの管理を行う
 /// </summary>
-class FrameController
+class FrameRateManager
 {
 public:
 
@@ -15,12 +15,12 @@ public:
 	/// [EN] Constructor specifying FPS. [JP] FPSを指定するコンストラクタ
 	/// </summary>
 	/// <param name="FPS"> [EN] specifying FPS. [JP] FPSの指定</param>
-	FrameController(int FPS);
-	~FrameController();
+	FrameRateManager(int FPS);
+	~FrameRateManager();
 
 	// [EN] Prohibited copy of this class. [JP] このクラスのコピーを禁止する
-	FrameController(const FrameController& other) = delete;
-	FrameController operator= (FrameController other) = delete;
+	FrameRateManager(const FrameRateManager& other) = delete;
+	FrameRateManager operator= (FrameRateManager other) = delete;
 
 	/// <summary>
 	/// [EN] First processing of the frame [JP] 最初のフレーム処理

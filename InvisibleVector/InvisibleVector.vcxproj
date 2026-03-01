@@ -76,14 +76,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -94,14 +94,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -110,14 +110,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -128,14 +128,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)Constant\;$(ProjectDir)Math\;$(ProjectDir)System\Time\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\tamura\Downloads\DxLib_VC3_24f\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\tamura\CreateGame\InvisibleVector\InvisibleVector\Tools\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -143,9 +143,10 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Objects\Base\ObjectManager.cpp" />
     <ClCompile Include="Objects\Base\WorldObjectBase.cpp" />
-    <ClCompile Include="System\FPS\FrameController.cpp" />
+    <ClCompile Include="System\FPS\FrameRateManager.cpp" />
     <ClCompile Include="System\FPS\FrameRateCounter.cpp" />
     <ClCompile Include="System\FPS\FrameRateLimiter.cpp" />
+    <ClCompile Include="System\Input\InputManager.cpp" />
     <ClCompile Include="System\Time\TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -160,9 +161,11 @@
     <ClInclude Include="Objects\Base\ObjectManager.h" />
     <ClInclude Include="Objects\Base\UIObjectBase.h" />
     <ClInclude Include="Objects\Base\WorldObjectBase.h" />
-    <ClInclude Include="System\FPS\FrameController.h" />
+    <ClInclude Include="System\FPS\FrameRateManager.h" />
     <ClInclude Include="System\FPS\FrameRateCounter.h" />
     <ClInclude Include="System\FPS\FrameRateLimiter.h" />
+    <ClInclude Include="System\Input\GameKey.h" />
+    <ClInclude Include="System\Input\InputManager.h" />
     <ClInclude Include="System\Time\TimeManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

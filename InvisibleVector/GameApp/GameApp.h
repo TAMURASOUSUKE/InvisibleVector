@@ -1,7 +1,9 @@
 #pragma once
 #include <memory>
 #include "SystemConstant.h"
-#include "../System/FPS/FrameController.h"
+#include "GameConstant.h"
+#include "../System/FPS/FrameRateManager.h"
+#include "../System/Input/InputManager.h"
 #include "../Objects/Base/ObjectManager.h"
 #include "../Objects/Base/ObjectFactory.h"
 
@@ -50,7 +52,13 @@ private:
 	std::unique_ptr<ObjectFactory> objectFactory{};
 
 
-	FrameController frameController{ USE_FPS };
-	unsigned int white{0};
-	unsigned int red{0};
+	FrameRateManager frameController{ USE_FPS }; // ƒtƒŒ[ƒ€ŠÇ—
+	InputManager inputManager{SCREEN_WIDTH, SCREEN_HEIGHT}; // “ü—ÍŠÇ—
+
+#ifdef _DEBUG
+
+	unsigned int white{ 0 };
+	unsigned int red{ 0 };
+
+#endif // _DEBUG
 };

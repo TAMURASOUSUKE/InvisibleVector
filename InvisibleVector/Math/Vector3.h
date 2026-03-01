@@ -91,11 +91,17 @@ struct Vector3Base
 		float len{ Length() }; // [EN] Length of vector. [JP] ƒxƒNƒgƒ‹‚Ì’·‚³
 
 		// [EN] Preventing division by 0 [JP] 0œŽZ‚Ì–hŽ~
-		if (len > 0)
+		if (len > GAME_EPSILON<float>)
 		{
 			x = static_cast<ValueType>(static_cast<float>(x) / len);
 			y = static_cast<ValueType>(static_cast<float>(y) / len);
 			z = static_cast<ValueType>(static_cast<float>(z) / len);
+		}
+		else
+		{
+			x = 0.0f;
+			y = 0.0f;
+			z = 0.0f;
 		}
 	}
 

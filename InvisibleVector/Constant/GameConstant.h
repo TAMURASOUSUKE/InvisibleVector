@@ -4,8 +4,8 @@
 	ゲームシステムに関する定数や汎用的な構造体等を定義する
 */
 
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
-const int COLOR_DEPTH = 32;
-const float CAMERA_NEAR = 0.1f;
-const float CAMERA_FAR = 10000.0f;
+const int SCREEN_WIDTH = 1280; // 横幅
+const int SCREEN_HEIGHT = 720; // 縦幅
+const int COLOR_DEPTH = 32; // 色の深度
+const float CAMERA_NEAR = 1.0f; // 視錐台の上面までの距離
+const float CAMERA_FAR = 10000.0f; // 視錐台の底面までの距離
