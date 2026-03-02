@@ -143,6 +143,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Objects\Base\ObjectManager.cpp" />
     <ClCompile Include="Objects\Base\WorldObjectBase.cpp" />
+    <ClCompile Include="Scenes\Base\SceneFactory.cpp" />
+    <ClCompile Include="Scenes\Base\SceneManager.cpp" />
     <ClCompile Include="System\FPS\FrameRateManager.cpp" />
     <ClCompile Include="System\FPS\FrameRateCounter.cpp" />
     <ClCompile Include="System\FPS\FrameRateLimiter.cpp" />
@@ -161,6 +163,9 @@
     <ClInclude Include="Objects\Base\ObjectManager.h" />
     <ClInclude Include="Objects\Base\UIObjectBase.h" />
     <ClInclude Include="Objects\Base\WorldObjectBase.h" />
+    <ClInclude Include="Scenes\Base\SceneBase.h" />
+    <ClInclude Include="Scenes\Base\SceneFactory.h" />
+    <ClInclude Include="Scenes\Base\SceneManager.h" />
     <ClInclude Include="System\FPS\FrameRateManager.h" />
     <ClInclude Include="System\FPS\FrameRateCounter.h" />
     <ClInclude Include="System\FPS\FrameRateLimiter.h" />
