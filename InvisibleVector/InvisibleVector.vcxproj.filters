@@ -32,6 +32,12 @@
     <Filter Include="ソース ファイル\System\Time">
       <UniqueIdentifier>{0bc9b251-f486-424a-8f16-c57de035c044}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Scenes">
+      <UniqueIdentifier>{a5e70929-9af7-44c2-ad6e-38446bae6fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scenes\Base">
+      <UniqueIdentifier>{a2e0593e-1214-4283-b58a-bb6ebb552f03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -46,9 +52,6 @@
     <ClCompile Include="System\FPS\FrameRateLimiter.cpp">
       <Filter>ソース ファイル\System\FPS</Filter>
     </ClCompile>
-    <ClCompile Include="System\FPS\FrameController.cpp">
-      <Filter>ソース ファイル\System\FPS</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\Base\ObjectManager.cpp">
       <Filter>ソース ファイル\Objects\Base</Filter>
     </ClCompile>
@@ -60,6 +63,30 @@
     </ClCompile>
     <ClCompile Include="System\Input\InputManager.cpp">
       <Filter>ソース ファイル\System\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="System\FPS\FrameRateManager.cpp">
+      <Filter>ソース ファイル\System\FPS</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Base\SceneFactory.cpp">
+      <Filter>ソース ファイル\Scenes\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Base\SceneManager.cpp">
+      <Filter>ソース ファイル\Scenes\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Title.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\GameOver.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\GameClear.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Base\ObjectFactory.cpp">
+      <Filter>ソース ファイル\Objects\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Base\Game.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,9 +103,6 @@
       <Filter>ソース ファイル\System\FPS</Filter>
     </ClInclude>
     <ClInclude Include="System\FPS\FrameRateLimiter.h">
-      <Filter>ソース ファイル\System\FPS</Filter>
-    </ClInclude>
-    <ClInclude Include="System\FPS\FrameController.h">
       <Filter>ソース ファイル\System\FPS</Filter>
     </ClInclude>
     <ClInclude Include="Math\Vector3.h">
@@ -113,6 +137,30 @@
     </ClInclude>
     <ClInclude Include="System\Input\GameKey.h">
       <Filter>ソース ファイル\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="System\FPS\FrameRateManager.h">
+      <Filter>ソース ファイル\System\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Base\SceneManager.h">
+      <Filter>ソース ファイル\Scenes\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Base\SceneFactory.h">
+      <Filter>ソース ファイル\Scenes\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Base\SceneBase.h">
+      <Filter>ソース ファイル\Scenes\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Title.h">
+      <Filter>ソース ファイル\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\GameOver.h">
+      <Filter>ソース ファイル\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\GameClear.h">
+      <Filter>ソース ファイル\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Base\Game.h">
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
