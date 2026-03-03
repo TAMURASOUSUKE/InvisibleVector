@@ -15,13 +15,6 @@ void Title::Initialize()
 
 	ObjectFactory::BindManager(objManager); // シーンのObjManagerをバインド
 
-	// タイトルロゴの位置からタイトルロゴのサイズ端までのランダム制限にしてハンドルを取得している(優先度100)
-	ObjectFactory::CreateFloatingBox(Vector2(TITLE_LOGO_POS_X, TITLE_LOGO_POS_Y), Vector2(TITLE_FLOATING_WIDTH, TITLE_FLOATING_HEIGHT), 100, ResourceManager::Instance().GetResourceHandle(SingleTextureKind::FloatingBox));
-	ObjectFactory::CreateLogo(Vector2(TITLE_LOGO_POS_X, TITLE_LOGO_POS_Y), 150, ResourceManager::Instance().GetResourceHandle(SingleTextureKind::TitleLogo));
-	ObjectFactory::CreateBackGround(Vector2::Zero(), 10, ResourceManager::Instance().GetResourceHandle(SingleTextureKind::TitleBackGround));
-	ObjectFactory::CreateChangeSceneLogo(Vector2(TITLE_CHANGE_SCENE_LOGO_X, TITLE_CHANGE_SCENE_LOGO_Y), 160, ResourceManager::Instance().GetResourceHandle(SingleTextureKind::TitleChangeSceneLogo));
-
-
 
 	objManager.SortUI(); // UIをソート
 

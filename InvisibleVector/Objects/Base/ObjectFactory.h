@@ -22,21 +22,6 @@ class ObjectFactory
 public:
 	static void BindManager(ObjectManager& _objManager); // 各シーンが持つObjectManagerを受け取るため
 
-	static void CreateFloatingBox(Vector2 _randomStartPos, Vector2 _randomEndPos, unsigned int _priority, int _handle);
-	static void CreateChangeSceneLogo(Vector2 _pos, unsigned int _priority, int handle);
-
-	static void CreateLogo(Vector2 _pos, unsigned int _priority, int _handle);
-	static void CreateBackGround(Vector2 _pos, unsigned int _priority, int _handle);
-
-	static Player* CreatePlayer(Vector3 _position, float _radius, int _handle);
-	static void CreateCamera(Vector3 _position, Player* _player); // カメラの生成
-	static void CreateStage();
-
-	static void CreateReticle(unsigned int _priority, int _handle);
-
-	static void CreateBullet(Vector3 _pos, Vector3 _start_pos, Vector3 _direction_vec, float _radius);
-
-	static void CreateScore(Vector2 _graphPos, Vector2 _fontPos, unsigned int _priority, int _rankAHandle, int _rankBHandle, int _rankCHandle, int _fontHandle);
 private:
 	static ObjectManager* targetManager; // どのシーンのオブジェクトマネージャーを使うかをバインドするための変数(参照に使うため生でよい)
 

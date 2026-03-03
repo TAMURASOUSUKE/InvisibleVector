@@ -15,13 +15,6 @@ void GameOver::Initialize()
 
 	ObjectFactory::BindManager(objManager); // シーンにバインド
 
-	ObjectFactory::CreateBackGround(Vector2(Vector2::Zero()), 10, ResourceManager::Instance().GetResourceHandle(SingleTextureKind::GameOverBackGround));
-	ObjectFactory::CreateChangeSceneLogo(Vector2(GAMEOVER_CHANGE_SCENE_LOGO_X, GAMEOVER_CHANGE_SCENE_LOGO_Y), 100, ResourceManager::Instance().GetResourceHandle(SingleTextureKind::GameOverChangeSceneLogo));
-	ObjectFactory::CreateLogo(Vector2(0.0f, -310.0f), 150, ResourceManager::Instance().GetResourceHandle(SingleTextureKind::GameOverLogo));
-	ObjectFactory::CreateFloatingBox(Vector2(300.0f, 100.0f), Vector2(1600.0f, 400.0f), 120, ResourceManager::Instance().GetResourceHandle(SingleTextureKind::FloatingBox));
-
-	ObjectFactory::CreateTestUIB(Vector2(40.0f, 50.0f), GetColor(255, 0, 255)); // TestB : UIを生成
-	ObjectFactory::CreateTestWorldB(Vector3(80.0f, 80.0f, 0.0f)); // TestB : Worldを作成
 
 	objManager.SortUI(); // UIのソート
 

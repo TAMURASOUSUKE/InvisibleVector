@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <memory>
+#include "GameConstant.h"
 #include "ObjectManager.h"
 
 

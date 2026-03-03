@@ -1,5 +1,4 @@
 #pragma once
-#include "../Objects/World/Player/Player.h" // 本来はNG
 #include "../Objects/Base/ObjectManager.h"
 #include "../Scenes/Base/SceneBase.h"
 
@@ -19,6 +18,4 @@ private:
 
 private:
 	ObjectManager objManager;
-	Player* player{ nullptr }; // 状態監視のためにポインタを保持(本来はNG)
-	GameEndFlagList endResult{ GameEndFlagList::None }; // クリアかオーバーかを保持
 };
