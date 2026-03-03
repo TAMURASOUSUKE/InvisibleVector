@@ -38,6 +38,9 @@
     <Filter Include="ソース ファイル\Scenes\Base">
       <UniqueIdentifier>{a2e0593e-1214-4283-b58a-bb6ebb552f03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ResourceManagement">
+      <UniqueIdentifier>{ea5fada8-ec38-4173-a513-e04c96246f32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -85,7 +88,13 @@
     <ClCompile Include="Objects\Base\ObjectFactory.cpp">
       <Filter>ソース ファイル\Objects\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\Base\Game.cpp">
+    <ClCompile Include="ResourceManagement\ResourceManager.cpp">
+      <Filter>ソース ファイル\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManagement\ResourceDataBase.cpp">
+      <Filter>ソース ファイル\ResourceManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Game.cpp">
       <Filter>ソース ファイル\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -159,7 +168,19 @@
     <ClInclude Include="Scenes\GameClear.h">
       <Filter>ソース ファイル\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\Base\Game.h">
+    <ClInclude Include="ResourceManagement\ResourceManager.h">
+      <Filter>ソース ファイル\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManagement\ResourceDataBase.h">
+      <Filter>ソース ファイル\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant\ResourceData.h">
+      <Filter>ソース ファイル\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant\ResourceConstant.h">
+      <Filter>ソース ファイル\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Game.h">
       <Filter>ソース ファイル\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

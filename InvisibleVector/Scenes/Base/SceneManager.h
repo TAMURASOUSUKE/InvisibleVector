@@ -28,9 +28,6 @@ public:
 	void Main();
 	void Draw();
 
-	// いったんこれを呼ぶことでフェード中の操作をやめる(必要になる具体オブジェクトがSceneManagerをインクルードしなければならなくなるため今後は改善の余地あり)
-	bool GetIsTransitioning() const { return isTransitioning; } // 遷移中かを返す
-
 private:
 	SceneManager()
 	{

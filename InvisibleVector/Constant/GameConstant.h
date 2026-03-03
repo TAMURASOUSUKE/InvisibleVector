@@ -52,6 +52,8 @@ constexpr float TARGET_SIZE{ 10.0f }; // 的のデフォルトサイズ
 constexpr float RETICLE_SIZE{ 300.0f };
 
 constexpr int FLOATING_BOX_DRAW_VALUE{ 10 }; // ロゴの裏に描画するBoxの数
+constexpr int FONT_SIZE{ 80 };
+constexpr int FONT_THICK{ 20 };
 
 // 描画のレイヤーを分け描画するタイミングを決定する
 enum class RendereLayer

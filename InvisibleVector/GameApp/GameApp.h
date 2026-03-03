@@ -49,11 +49,10 @@ private:
 
 private:
 	ObjectManager objectManager{};
-	std::unique_ptr<ObjectFactory> objectFactory{};
+
 
 
 	FrameRateManager frameController{ USE_FPS }; // ƒtƒŒ[ƒ€ŠÇ—
-	InputManager inputManager{SCREEN_WIDTH, SCREEN_HEIGHT}; // “ü—ÍŠÇ—
 
 #ifdef _DEBUG
 
