@@ -183,5 +183,11 @@
     <ClInclude Include="Scenes\Game.h">
       <Filter>ソース ファイル\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Constant\CollisionConstant.h">
+      <Filter>ソース ファイル\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant\Collider.h">
+      <Filter>ソース ファイル\Constant</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -159,6 +159,8 @@
     <ClCompile Include="System\Time\TimeManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Constant\Collider.h" />
+    <ClInclude Include="Constant\CollisionConstant.h" />
     <ClInclude Include="Constant\GameConstant.h" />
     <ClInclude Include="Constant\ResourceConstant.h" />
     <ClInclude Include="Constant\ResourceData.h" />
