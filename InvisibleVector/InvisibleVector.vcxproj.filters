@@ -41,6 +41,9 @@
     <Filter Include="ソース ファイル\ResourceManagement">
       <UniqueIdentifier>{ea5fada8-ec38-4173-a513-e04c96246f32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\CollisionManagement">
+      <UniqueIdentifier>{a7cdb586-416e-4c55-98f8-fc0f1cf70db5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -96,6 +99,12 @@
     </ClCompile>
     <ClCompile Include="Scenes\Game.cpp">
       <Filter>ソース ファイル\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManagement\CollisionManager.cpp">
+      <Filter>ソース ファイル\CollisionManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManagement\ColliderRebuilder.cpp">
+      <Filter>ソース ファイル\CollisionManagement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +197,12 @@
     </ClInclude>
     <ClInclude Include="Constant\Collider.h">
       <Filter>ソース ファイル\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManagement\CollisionManager.h">
+      <Filter>ソース ファイル\CollisionManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManagement\ColliderRebuilder.h">
+      <Filter>ソース ファイル\CollisionManagement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

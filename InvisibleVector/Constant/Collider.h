@@ -31,7 +31,7 @@ struct ColliderBase
 
 	virtual ~ColliderBase() = default; // デストラクタ
 
-	virtual void ExtractParameter(std::unordered_map<ColliderParamKey, float>& out_parames_) = 0;
+	virtual void ExtractParameter(std::unordered_map<ColliderParamKey, float>& out_parames_) const = 0;
 
 	virtual ColliderType GetType() const = 0;
 
@@ -63,7 +63,7 @@ struct SphereCollider : public ColliderBase
 	}
 
 	// コライダーの情報をoutPramsにつめる
-	void ExtractParameter(std::unordered_map<ColliderParamKey, float>& outParams) override
+	void ExtractParameter(std::unordered_map<ColliderParamKey, float>& outParams) const override
 	{
 		outParams[ColliderParamKey::PosX] = pos.x;
 		outParams[ColliderParamKey::PosY] = pos.y;
@@ -97,7 +97,7 @@ struct BoxCollider : public ColliderBase
 		size{width, height, depth},
 		rotate{rotaX, rotaY, rotaZ} { }
 
-	void ExtractParameter(std::unordered_map<ColliderParamKey, float>& outParam) override
+	void ExtractParameter(std::unordered_map<ColliderParamKey, float>& outParam) const override
 	{
 		outParam[ColliderParamKey::PosX] = pos.x;
 		outParam[ColliderParamKey::PosY] = pos.y;
@@ -157,7 +157,7 @@ struct CapsuleCollider : public ColliderBase
 		ColliderBase{tag, subTag, func}, startPos{startX, startY, startZ}, endPos{endX, endY, endZ}, rotate{rotaX, rotaY, rotaZ}, radius{radius} { }
 
 	// outParamにデータを詰め込む
-	void ExtractParameter(std::unordered_map<ColliderParamKey, float>& outParam) override
+	void ExtractParameter(std::unordered_map<ColliderParamKey, float>& outParam) const override
 	{
 		outParam[ColliderParamKey::PosX] = startPos.x;
 		outParam[ColliderParamKey::PosY] = startPos.y;
