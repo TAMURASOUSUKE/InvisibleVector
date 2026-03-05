@@ -10,12 +10,15 @@ struct HitResult
 {
 	// コンストラクタ
 	HitResult() = default; // デフォルト
-	HitResult(CollisionTag tag, SubTag subTag) : tag{ tag }, subTag{ subTag } {}
+	HitResult(CollisionTag tag, SubTag subTag, Vector3 pushVec) : tag{ tag }, subTag{ subTag }, pushVec{ pushVec } {}
 
 	// 当たった相手
 	CollisionTag tag{ CollisionTag::None };
 	// 詳細情報 Enemy等とあたった場合どの相手と当たった化などを取得したい場合に使う
 	SubTag subTag{ 0 };
+
+	// 衝突判定に使う押し戻し用
+	Vector3 pushVec{ Vector3::Zero() };
 
 };
 

@@ -15,7 +15,8 @@ public:
 	}
 
 	// あたり判定ロジック
-	static bool IsOverlapping(const SphereCollider& collider01, const SphereCollider& collider02); // 球と球
+	static bool IsOverlapping(const SphereCollider& collider01, const SphereCollider& collider02, Vector3& outPushVec); // 球と球
+	static bool IsOverlapping(const SphereCollider& sphere, const BoxCollider& box, Vector3 pushVec); // 球と箱
 
 	// 判定の登録
 	void Register(CollisionTag tag, ColliderBase* collider);
@@ -34,9 +35,10 @@ private:
 
 	// 判定を実行
 	void ProcessSphereSphereCollision(ColliderBase* sphere01, ColliderBase* sphere02);
+	void ProcessSphereBoxCollision(ColliderBase* sphere, ColliderBase* box);
 
 	// 結果通知
-	void NotifyResults(ColliderBase& from, ColliderBase& to);
+	void NotifyResults(ColliderBase& from, ColliderBase& to, Vector3 pushVec);
 
 private:
 	// CollisionTag別にまとめたColliderBaseの配列
