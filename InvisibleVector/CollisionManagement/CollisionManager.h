@@ -16,7 +16,8 @@ public:
 
 	// あたり判定ロジック
 	static bool IsOverlapping(const SphereCollider& collider01, const SphereCollider& collider02, Vector3& outPushVec); // 球と球
-	static bool IsOverlapping(const SphereCollider& sphere, const BoxCollider& box, Vector3 pushVec); // 球と箱
+	static bool IsOverlapping(const SphereCollider& sphere, const BoxCollider& box, Vector3& pushVec); // 球と箱
+	static bool IsOverlappingOBB(const SphereCollider& sphere, const BoxCollider& box, Vector3& pushVec); // 回転箱と球
 
 	// 判定の登録
 	void Register(CollisionTag tag, ColliderBase* collider);
@@ -29,6 +30,9 @@ private:
 	// コピーと代入の禁止
 	CollisionManager(const CollisionManager&) = delete;
 	CollisionManager& operator=(const CollisionManager&) = delete;
+
+	// Y -> X -> Zの順で回転させる
+	Vector3 RotateVctor(const Vector3& vec, const Vector3& rot);
 
 	// 組み合わせ決定
 	void DecideCollisionCombination(ColliderBase* collider01, ColliderBase* collider02);

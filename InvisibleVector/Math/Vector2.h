@@ -96,6 +96,18 @@ struct Vector2Base
 
 	// ====================================== [EN] Calculattions [JP] 演算
 
+
+	/// <summary>
+	/// [EN] Unary minus operator. Returns the invers vector.
+	/// [JP] 単項マイナス演算子 逆ベクトルを返す
+	/// </summary>
+	/// <returns>[EN] Inverse vector [JP] 逆方向のベクトル</returns>
+	Vector2Base operator -() const
+	{
+		return Vector2Base{ -x, -y};
+	}
+
+
 	/// <summary>
 	/// [EN] Addiotn of vectors 
 	/// [JP] ベクター同士の加算

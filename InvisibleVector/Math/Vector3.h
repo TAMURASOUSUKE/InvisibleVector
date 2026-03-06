@@ -107,6 +107,17 @@ struct Vector3Base
 
 	// ====================================== [EN] Calculattions [JP] 演算
 
+
+	/// <summary>
+	/// [EN] Unary minus operator. Returns the invers vector.
+	/// [JP] 単項マイナス演算子 逆ベクトルを返す
+	/// </summary>
+	/// <returns>[EN] Inverse vector [JP] 逆方向のベクトル</returns>
+	Vector3Base operator -() const
+	{
+		return Vector3Base{ -x, -y, -z };
+	}
+
 	/// <summary>
 	/// [EN] Addiotn of vectors 
 	/// [JP] ベクター同士の加算

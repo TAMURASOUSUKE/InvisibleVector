@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cmath>
 #include "CollisionManager.h"
 
 
@@ -40,7 +41,7 @@ bool CollisionManager::IsOverlapping(const SphereCollider& collider01, const Sph
 }
 
 // ‹…‚Æ” (AABB)
-bool CollisionManager::IsOverlapping(const SphereCollider& sphere, const BoxCollider& box, Vector3 pushVec)
+bool CollisionManager::IsOverlapping(const SphereCollider& sphere, const BoxCollider& box, Vector3& pushVec)
 {
 	// AABB‚æ‚¤‚ÉÅ‘å‚ÆÅ¬À•W‚ğæ“¾
 	Vector3 minPos{ box.GetMinPos() };
@@ -174,7 +175,37 @@ void CollisionManager::ProcessSphereSphereCollision(ColliderBase* sphere01, Coll
 // ‹…‚Æ” ‚Ìì‚è’¼‚µ‚Æ”»’è‚ÌÀs
 void CollisionManager::ProcessSphereBoxCollision(ColliderBase* sphere, ColliderBase* box)
 {
+	// ˆê“I‚È”»’è‚Ì“ü‚ê•¨
+	SphereCollider rebuildSphere{};
+	BoxCollider rebuildBox{};
 
+	// ’Šo‚µ‚Ä3D}Œ`‚Æ‚µ‚Ä•œŒ³
+	if (!rebuilder.Rebuild(sphere, rebuildSphere) || !rebuilder.Rebuild(box, rebuildBox))
+	{
+		return; // •œŒ³¸”s‚Æ‚·‚é
+	}
+
+	Vector3 pushVec{};
+
+	// ‰ñ“]‚µ‚Ä‚¢‚Èê‡‚Ìˆ—
+	/*
+		‰ñ“]‚µ‚Ä‚¢‚é‚Æ‚µ‚Ä‚¢‚È‚¢‚Å‚ÍŒvZ—Ê‚É‰_“D‚Ì·‚ª‚ ‚é‚Ì‚Å•ª‚¯‚é
+	*/
+	if (rebuildBox.rotate == Vector3::Zero())
+	{
+		// ‰ñ“]‚µ‚Ä‚¢‚È‚¢‚Æ”»’f‚µAABB‚ğÀs‚·‚é
+		if (IsOverlapping(rebuildSphere, rebuildBox, pushVec))
+		{
+			// ‹…‚ÍpushVec•ûŒü‚Ö
+			NotifyResults(*box, *sphere, pushVec);
+			// ” ‚Í-pushVec•ûŒü‚Ö
+			NotifyResults(*sphere, *box, -pushVec);
+		}
+	}
+	else
+	{
+		// ‰ñ“]‚µ‚Ä‚¢‚é‚Æ‚İ‚È‚µOBBˆ—
+	}
 }
 
 void CollisionManager::NotifyResults(ColliderBase& from, ColliderBase& to, Vector3 pushVec)
@@ -193,4 +224,9 @@ void CollisionManager::Register(CollisionTag tag, ColliderBase* collider)
 	{
 		colliderByTag[tag].push_back(collider);
 	}
+}
+
+Vector3 CollisionManager::RotateVctor(const Vector3& vec, const Vector3& rot)
+{
+	
 }
