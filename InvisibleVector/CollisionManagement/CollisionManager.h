@@ -17,6 +17,7 @@ public:
 	// あたり判定ロジック
 	static bool IsOverlapping(const SphereCollider& collider01, const SphereCollider& collider02, Vector3& outPushVec); // 球と球
 	static bool IsOverlapping(const SphereCollider& sphere, const BoxCollider& box, Vector3& pushVec); // 球と箱
+	static bool IsOverlapping(const SphereCollider& sphere, const CapsuleCollider& capsule, Vector3& pushVec); // 球とカプセル
 	static bool IsOverlapping(const BoxCollider& box01, const BoxCollider& box02, Vector3& pushVec); // 箱と箱
 	static bool IsOverlappingOBB(const SphereCollider& sphere, const BoxCollider& box, Vector3& pushVec); // 回転箱と球
 	static bool IsOverlappingOBB(const BoxCollider& box01, const BoxCollider& box02, Vector3& pushVec); // 回転箱と回転箱
@@ -26,6 +27,8 @@ public:
 
 	// 毎フレーム呼ばれる更新関数
 	void Update();
+
+	void Clear(); // 破棄したいときにこれを呼ぶ
 
 private:
 	CollisionManager() = default;
@@ -52,6 +55,7 @@ private:
 	void ProcessSphereSphereCollision(ColliderBase* sphere01, ColliderBase* sphere02);
 	void ProcessSphereBoxCollision(ColliderBase* sphere, ColliderBase* box);
 	void ProcessBoxBoxCollision(ColliderBase* box01, ColliderBase* box02);
+	void ProcessSphereCapsuleCollision(ColliderBase* sphere, ColliderBase* capsule);
 
 	// 結果通知
 	void NotifyResults(ColliderBase& from, ColliderBase& to, Vector3 pushVec);

@@ -137,6 +137,58 @@ bool CollisionManager::IsOverlapping(const BoxCollider& box01, const BoxCollider
 	return true;
 }
 
+bool CollisionManager::IsOverlapping(const SphereCollider& sphere, const CapsuleCollider& capsule, Vector3& pushVec)
+{
+	Vector3 A{ capsule.startPos }; // 始点
+	Vector3 B{ capsule.endPos }; // 終点
+	Vector3 P{ sphere.pos }; // 球の中心座標
+
+	Vector3 AB{ B - A }; // 高さ
+	Vector3 AP{ P - A }; // 始点から球の中心座標へのベクトル
+
+	// 内積を使って球の中心が線分ABのどのあたりにあるのかを出す
+	float lenSp{ AB.LengthNoSqr() }; // 長さの二乗
+
+	float t{ 0.0f };
+	if (lenSp != 0.0f) // 0割り防止
+	{
+		t = Vector3::Dot(AP, AB);
+	}
+
+	t = std::clamp(t, 0.0f, 1.0f); // 割合を0.0f - 1.0fの値に収める
+
+	// 最近点をを求める
+	Vector3 closestPoint{ A + (AB * t) }; // 始点 + (線分の長さ * 割合)
+
+	// 最近点と球の中心との判定
+	Vector3 vec{ P - closestPoint }; // 最近点から球の中心座標へのベクトル
+	float distance{ vec.Length() }; // 長さ
+	float radiusNum{ sphere.radius + capsule.radius }; // 半径の合計
+
+	if (radiusNum < distance)
+	{
+		// ここに入ると当たっていないと判断
+		return false;
+	}
+
+	float penetration{ sphere.radius - distance }; // 押し出す量
+	Vector3 normal{}; // 押し出す方向
+
+	// 例外処理(球とカプセルが完全に重なっている場合)
+	if (distance == 0.0f)
+	{
+		normal = Vector3(0.0f, 1.0f, 0.0f);
+	}
+	else
+	{
+		vec.Normalize();
+		normal = vec;
+	}
+
+	pushVec = normal * penetration;
+	return true;
+}
+
 bool CollisionManager::IsOverlappingOBB(const SphereCollider& sphere, const BoxCollider& box, Vector3& pushVec)
 {
 	// 中心を基準に計算するようにするためのキャッシュ
@@ -218,9 +270,6 @@ bool CollisionManager::IsOverlappingOBB(const BoxCollider& box01, const BoxColli
 	Vector3 bZ{ RotateVector(Vector3(0.0f, 0.0f, 1.0f), box02.rotate) };
 
 	// 箱から箱への中心間ベクトル
-	Vector3 centerToCenter{ center02 - center01 };
-
-	// 分離軸テスト
 	Vector3 centerToCenter{ center02 - center01 };
 
 	// 15本の分離軸を配列にまとめる
@@ -326,6 +375,11 @@ void CollisionManager::DecideCollisionCombination(ColliderBase* collider01, Coll
 	else if (colliders.count(ColliderType::Box) > 0 && colliders[ColliderType::Box].size() == 2)
 	{
 		ProcessBoxBoxCollision(colliders[ColliderType::Box][0], colliders[ColliderType::Box][1]);
+	}
+	// 球とカプセル
+	else if (colliders.count(ColliderType::Sphere) && colliders[ColliderType::Sphere].size() == 1 && colliders[ColliderType::Capsule].size() == 1)
+	{
+		ProcessSphereCapsuleCollision(colliders[ColliderType::Sphere][0], colliders[ColliderType::Capsule][0]);
 	}
 }
 
@@ -437,6 +491,27 @@ void CollisionManager::ProcessBoxBoxCollision(ColliderBase* box01, ColliderBase*
 	}
 }
 
+void CollisionManager::ProcessSphereCapsuleCollision(ColliderBase* sphere, ColliderBase* capsule)
+{
+	// 一時的な入れ物
+	SphereCollider rebuildShere{};
+	CapsuleCollider rebuildCapsule{};
+
+	// 抽出して3D図形として復元
+	if (!rebuilder.Rebuild(sphere, rebuildShere) || !rebuilder.Rebuild(capsule, rebuildCapsule))
+	{
+		return; // 復元失敗
+	}
+
+	Vector3 pushVec{};
+
+	if (IsOverlapping(rebuildShere, rebuildCapsule, pushVec))
+	{
+		NotifyResults(*sphere, *capsule, pushVec);
+		NotifyResults(*capsule, *sphere, -pushVec);
+	}
+}
+
 void CollisionManager::NotifyResults(ColliderBase& from, ColliderBase& to, Vector3 pushVec)
 {
 	if (to.ReciveFunc != nullptr)
@@ -529,3 +604,8 @@ Vector3 CollisionManager::RotateVector(const Vector3& vec, const Vector3& rot)
 	// ここまでくれば当たっているとする
 	return true;
 }
+
+ void CollisionManager::Clear()
+ {
+	 colliderByTag.clear();
+ }

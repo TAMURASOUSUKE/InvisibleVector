@@ -1,5 +1,5 @@
 #include "DxLib.h"
-#include "../Collision/CollisionManager.h"
+#include "../CollisionManagement/CollisionManager.h"
 #include "../ResourceManagement/ResourceManager.h"
 #include "../Objects/Base/ObjectFactory.h"
 #include "Game.h"
