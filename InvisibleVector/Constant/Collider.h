@@ -192,3 +192,19 @@ struct CapsuleCollider : public ColliderBase
 	Vector3 rotate{ Vector3::Zero() };
 	float radius{ 0.0f };
 };
+
+// Ray
+struct Ray
+{
+	Vector3 origin; // 発射地点
+	Vector3 direction; // 飛ばす方向
+};
+
+// RayCastの結果を受け取る際の構造体
+struct RayCastHit
+{
+	ColliderBase* hitCollider; // 当たった相手のコライダー
+	float distance; // 距離
+	Vector3 hitPoint; // 当たったワールド座標
+	Vector3 normal; // 当たった面の法線
+};

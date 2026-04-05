@@ -18,9 +18,15 @@ public:
 	static bool IsOverlapping(const SphereCollider& collider01, const SphereCollider& collider02, Vector3& outPushVec); // 球と球
 	static bool IsOverlapping(const SphereCollider& sphere, const BoxCollider& box, Vector3& pushVec); // 球と箱
 	static bool IsOverlapping(const SphereCollider& sphere, const CapsuleCollider& capsule, Vector3& pushVec); // 球とカプセル
+	static bool IsOverlapping(const BoxCollider& box, const CapsuleCollider& capsule, Vector3& pushVec); // 箱とカプセル
+	static bool IsOverlapping(const CapsuleCollider& capsule01, const CapsuleCollider& capsule02, Vector3& pushVec); // カプセルとカプセル
 	static bool IsOverlapping(const BoxCollider& box01, const BoxCollider& box02, Vector3& pushVec); // 箱と箱
 	static bool IsOverlappingOBB(const SphereCollider& sphere, const BoxCollider& box, Vector3& pushVec); // 回転箱と球
 	static bool IsOverlappingOBB(const BoxCollider& box01, const BoxCollider& box02, Vector3& pushVec); // 回転箱と回転箱
+	static bool IsOverlappingOBB(const BoxCollider& box, const CapsuleCollider& capsule, Vector3& pushVec); // 回転箱とカプセル
+
+	// 外部からRayを打ち一番近い相手の情報をoutHitに入れて返す
+	bool RayCast(const Ray& ray, RayCastHit& outHit, CollisionTag targetTag);
 
 	// 判定の登録
 	void Register(CollisionTag tag, ColliderBase* collider);
@@ -48,6 +54,23 @@ private:
 		float& outPenetration
 	);
 
+	// 二つの線分の最近点を求めるヘルパー関数
+	static void ClosestPointSegmentSegment(
+		const Vector3& p1, const Vector3& q1, // 線分1の始点と終点
+		const Vector3& p2, const Vector3& q2, // 線分2の始点と終点
+		Vector3& closest1, Vector3& closest2  // 結果として出力される2つの最近点
+	);
+
+	// 点から線分上の最近点を求めるヘルパー関数
+	static Vector3 ClosestPointOnSegment(const Vector3& start, const Vector3& end, const Vector3& point);
+	// Rayと球の判定を行うヘルパー関数
+	static bool IntersectRaySphere(const Ray& ray, const SphereCollider& sphere, float& outDistance);
+	// RayとBoxの判定を行うヘルパー関数
+	static bool IntersectRayBox(const Ray& ray, const BoxCollider& box, float& outDistance);
+	// Rayと回転Boxの判定を行うヘルパー関数
+	static bool IntersectRayOBB(const Ray& ray, const BoxCollider& box, float& outDistance);
+	// Rayとカプセルの判定を行うヘルパー関数
+	static bool IntersectRayCapsule(const Ray& ray, const CapsuleCollider& capsule, float& outDistance);
 	// 組み合わせ決定
 	void DecideCollisionCombination(ColliderBase* collider01, ColliderBase* collider02);
 
@@ -56,6 +79,8 @@ private:
 	void ProcessSphereBoxCollision(ColliderBase* sphere, ColliderBase* box);
 	void ProcessBoxBoxCollision(ColliderBase* box01, ColliderBase* box02);
 	void ProcessSphereCapsuleCollision(ColliderBase* sphere, ColliderBase* capsule);
+	void ProcessCapsuleCapsuleCollision(ColliderBase* capsule01, ColliderBase* capsule02);
+	void ProcessBoxCapsuleCollision(ColliderBase* box, ColliderBase* capsule);
 
 	// 結果通知
 	void NotifyResults(ColliderBase& from, ColliderBase& to, Vector3 pushVec);
