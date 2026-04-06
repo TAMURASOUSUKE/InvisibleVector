@@ -15,6 +15,7 @@ public:
 private:
 	void Initialize() override; // 最初の処理
 	void Execute() override; // 毎フレーム行う処理(更新)
+	void FixedExecute() override; // 毎フレーム行う物理処理
 	SceneType Terminate() override; // シーンを抜ける処理
 private:
 	ObjectManager objManager;

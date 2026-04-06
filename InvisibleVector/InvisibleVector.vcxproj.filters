@@ -106,6 +106,15 @@
     <ClCompile Include="CollisionManagement\ColliderRebuilder.cpp">
       <Filter>ソース ファイル\CollisionManagement</Filter>
     </ClCompile>
+    <ClCompile Include="Objects\DebugPhysicsObject.cpp">
+      <Filter>ソース ファイル\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\DebugGround.cpp">
+      <Filter>ソース ファイル\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Debug.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp\GameApp.h">
@@ -203,6 +212,15 @@
     </ClInclude>
     <ClInclude Include="CollisionManagement\ColliderRebuilder.h">
       <Filter>ソース ファイル\CollisionManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\DebugPhysicsObject.h">
+      <Filter>ソース ファイル\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\DebugGround.h">
+      <Filter>ソース ファイル\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Debug.h">
+      <Filter>ソース ファイル\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

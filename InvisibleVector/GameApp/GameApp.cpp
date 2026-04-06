@@ -1,8 +1,10 @@
 #include "DxLib.h"
 #include <timeapi.h>
 #include <string>
+#include "../Scenes/Base/SceneManager.h"
 #include "../Math/Vector_Dxlib.h"
 #include "GameApp.h"
+#include "../CollisionManagement/CollisionManager.h"
 
 #pragma comment(lib, "winmm.lib")
 
@@ -52,10 +54,10 @@ bool GameApp::Initialize()
 	// TODO:
 	// [EN] Move camera settings to Player or Camera class later. Currently using magic numbers for testing purporse.
 	// [JP] カメラに関してはプレイヤーで使うのであくまでこれはテスト用。プレイヤー実装時にカメラの設定をプレイヤーに移すのでいったんはマジックナンバーを許容する
-	SetCameraPositionAndTarget_UpVecY(VGet(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, -100.0f), VGet(SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 1.0f)); // カメラの位置と注視点の設定(位置途中視点はデフォルトです)
+	SetCameraPositionAndTarget_UpVecY(VGet(0.0f, 150.0f, -100.0f), VGet(0.0f, 120.0f, 1.0f)); // カメラの位置と注視点の設定(位置途中視点はデフォルトです)
 	// ------------------------------------------------------------------------
 
-
+	SceneManager::Instance().SetFirstScene(SceneType::Debug);
 	return true;
 }
 
@@ -83,16 +85,12 @@ void GameApp::Update()
 	// FixedUpdate更新
 	while (frameController.IsFixedUpdateRequired())
 	{
-		objectManager.FixedUpdate();
+		SceneManager::Instance().FixedUpdate();
 
 		frameController.ConsumeFixedTime();
 	}
 
-	// オブジェクト更新
-	objectManager.Update();
-
-	// 使わなくなったデータ等を消す
-	objectManager.Refresh();
+	SceneManager::Instance().Update();
 }
 
 // [EN] Render Frame
@@ -106,211 +104,210 @@ void GameApp::Draw()
 
 	ClearDrawScreen();
 
-
-
+	SceneManager::Instance().Draw();
 
 #ifdef _DEBUG
 
+	// ======================================================== [EN] Draw 2D area FPS. [JP] 2D領域にFPSを描画する ==================================================
 
-// ======================================================== [EN] Draw 2D area FPS. [JP] 2D領域にFPSを描画する ==================================================
+	//SetUseZBuffer3D(false); // [EN] Disable Z-buffer for 2D drawing. [JP] 2D描画のためZバッファを無効化する
+	//SetWriteZBuffer3D(false); // [EN] Disable writing to Z-buffer for 2D drawing. [JP] 2D描画のためZバッファへの書き込みを無効化する
 
-	SetUseZBuffer3D(false); // [EN] Disable Z-buffer for 2D drawing. [JP] 2D描画のためZバッファを無効化する
-	SetWriteZBuffer3D(false); // [EN] Disable writing to Z-buffer for 2D drawing. [JP] 2D描画のためZバッファへの書き込みを無効化する
-
-	InputManager::Instance().SetMouseSensibility();
-	InputManager::Instance().SetStickDeadZone();
-	InputManager::Instance().SetStickSensibility();
-	InputManager::Instance().SetTriggerDeadZone();
-
-
-	DrawFormatString(DEBUG_FPS_POSITION_X, DEBUG_FPS_POSITION_Y, GetColor(255, 255, 255), "現在のFPS : %.1f", frameController.GetCurrentFPS());
-	DrawFormatString(DEBUG_DELTA_TIME_POSITION_X, DEBUG_DELTA_TIME_POSITION_Y, GetColor(255, 255, 255), "Delta Time : %.6f", frameController.GetDeltaTime());
-
-	Vector2 inputDebugDrawPos{ 20.0f, 100.0f };
-	float lineHight{ 20.0f };
-
-	DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "--- Input Debug ---", white);
-	inputDebugDrawPos.y += lineHight;
-
-	// 現在の状態入力状態を表示
-	std::string currentInputState{ "" };
-
-	switch (InputManager::Instance().GetInputMode())
-	{
-	case InputMode::Game:
-		currentInputState = "GameMode";
-		break;
-	case InputMode::Menu:
-		currentInputState = "MenuMode";
-		break;
-	case InputMode::Config:
-		currentInputState = "ConfigMode";
-		break;
-	default:
-		currentInputState = "Mode None";
-		break;
-	}
-
-	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Current Mode : %s", currentInputState.c_str());
-
-	inputDebugDrawPos.y += lineHight;
-
-	// 軸入力の確認
-	Vector2 axis{ InputManager::Instance().GetAxis() };
-	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Axis: (%.2f, %.2f)", axis.x, axis.y);
-
-	inputDebugDrawPos.y += lineHight;
-
-	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Trigger Dead Zone: %d", InputManager::Instance().GetTriggerDeadZone());
-
-	inputDebugDrawPos.y += lineHight;
-
-	// ボタンの確認
-	// 押されていれば文字が赤くなるようにする
-	auto DrawButtonState = [&](const char* name, auto key)
-		{
-			unsigned int color = InputManager::Instance().GetButtonStay(key) ? red : white; // 押し続けていれば赤
-
-			const char* status = ""; // ステータスを文字列にする
-			if (InputManager::Instance().GetButtonDown(key)) status = "DWN";
-			if (InputManager::Instance().GetButtonUp(key)) status = "UP";
-
-			DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, color, "[%s] %s %s", status, name, InputManager::Instance().GetButtonStay(key) ? "ON" : "off");
-
-			inputDebugDrawPos.y += lineHight;
-
-		};
+	//InputManager::Instance().SetMouseSensibility();
+	//InputManager::Instance().SetStickDeadZone();
+	//InputManager::Instance().SetStickSensibility();
+	//InputManager::Instance().SetTriggerDeadZone();
 
 
-	// 主要なキーを表示
-	DrawButtonState("Game : Jump", ActionID::GameAction::Jump);
-	DrawButtonState("Game : Dash", ActionID::GameAction::Dash);
-	DrawButtonState("Game : Crouch", ActionID::GameAction::Crouch);
-	DrawButtonState("Game : Up", ActionID::GameAction::Up);
-	DrawButtonState("Game : Down", ActionID::GameAction::Down);
-	DrawButtonState("Game : Left", ActionID::GameAction::Left);
-	DrawButtonState("Game : Right", ActionID::GameAction::Right);
-	DrawButtonState("UI : Up", ActionID::UI::Up);
-	DrawButtonState("UI : Down", ActionID::UI::Down);
-	DrawButtonState("UI : Right", ActionID::UI::Right);
-	DrawButtonState("UI : Left", ActionID::UI::Left);
-	DrawButtonState("UI : Decide", ActionID::UI::Decide);
-	DrawButtonState("UI : Cancel", ActionID::UI::Cancel);
-	DrawButtonState("UI : Pause", ActionID::UI::Pause);
+	//DrawFormatString(DEBUG_FPS_POSITION_X, DEBUG_FPS_POSITION_Y, GetColor(255, 255, 255), "現在のFPS : %.1f", frameController.GetCurrentFPS());
+	//DrawFormatString(DEBUG_DELTA_TIME_POSITION_X, DEBUG_DELTA_TIME_POSITION_Y, GetColor(255, 255, 255), "Delta Time : %.6f", frameController.GetDeltaTime());
 
-	// JSON保存のテスト用
-	if (InputManager::Instance().GetButtonDown(ActionID::GameAction::Zoom))
-	{
-		DrawString(200, 100, "Save Config Triggered!", red);
-		InputManager::Instance().SaveConfig();
-	}
+	//Vector2 inputDebugDrawPos{ 20.0f, 100.0f };
+	//float lineHight{ 20.0f };
+
+	//DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "--- Input Debug ---", white);
+	//inputDebugDrawPos.y += lineHight;
+
+	//// 現在の状態入力状態を表示
+	//std::string currentInputState{ "" };
+
+	//switch (InputManager::Instance().GetInputMode())
+	//{
+	//case InputMode::Game:
+	//	currentInputState = "GameMode";
+	//	break;
+	//case InputMode::Menu:
+	//	currentInputState = "MenuMode";
+	//	break;
+	//case InputMode::Config:
+	//	currentInputState = "ConfigMode";
+	//	break;
+	//default:
+	//	currentInputState = "Mode None";
+	//	break;
+	//}
+
+	//DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Current Mode : %s", currentInputState.c_str());
+
+	//inputDebugDrawPos.y += lineHight;
+
+	//// 軸入力の確認
+	//Vector2 axis{ InputManager::Instance().GetAxis() };
+	//DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Axis: (%.2f, %.2f)", axis.x, axis.y);
+
+	//inputDebugDrawPos.y += lineHight;
+
+	//DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Trigger Dead Zone: %d", InputManager::Instance().GetTriggerDeadZone());
+
+	//inputDebugDrawPos.y += lineHight;
+
+	//// ボタンの確認
+	//// 押されていれば文字が赤くなるようにする
+	//auto DrawButtonState = [&](const char* name, auto key)
+	//	{
+	//		unsigned int color = InputManager::Instance().GetButtonStay(key) ? red : white; // 押し続けていれば赤
+
+	//		const char* status = ""; // ステータスを文字列にする
+	//		if (InputManager::Instance().GetButtonDown(key)) status = "DWN";
+	//		if (InputManager::Instance().GetButtonUp(key)) status = "UP";
+
+	//		DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, color, "[%s] %s %s", status, name, InputManager::Instance().GetButtonStay(key) ? "ON" : "off");
+
+	//		inputDebugDrawPos.y += lineHight;
+
+	//	};
 
 
-	// キーコンフィグを変更できるか確認する
-	static bool isRebindingJumpKey{ false }; // 新しくキーを設定するかどうかを判定するフラグ(簡易的なテストなのでstatic)
-	static bool isRebindingDashPad{ false }; // 新しくダッシュボタンをパッドで設定するかどうかを判定する
+	//// 主要なキーを表示
+	//DrawButtonState("Game : Jump", ActionID::GameAction::Jump);
+	//DrawButtonState("Game : Dash", ActionID::GameAction::Dash);
+	//DrawButtonState("Game : Crouch", ActionID::GameAction::Crouch);
+	//DrawButtonState("Game : Up", ActionID::GameAction::Up);
+	//DrawButtonState("Game : Down", ActionID::GameAction::Down);
+	//DrawButtonState("Game : Left", ActionID::GameAction::Left);
+	//DrawButtonState("Game : Right", ActionID::GameAction::Right);
+	//DrawButtonState("UI : Up", ActionID::UI::Up);
+	//DrawButtonState("UI : Down", ActionID::UI::Down);
+	//DrawButtonState("UI : Right", ActionID::UI::Right);
+	//DrawButtonState("UI : Left", ActionID::UI::Left);
+	//DrawButtonState("UI : Decide", ActionID::UI::Decide);
+	//DrawButtonState("UI : Cancel", ActionID::UI::Cancel);
+	//DrawButtonState("UI : Pause", ActionID::UI::Pause);
 
-	if (isRebindingJumpKey)
-	{
-		// 変更モード中を表示
-		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, ">> Press Any Key for [JUMP] <<", red);
+	//// JSON保存のテスト用
+	//if (InputManager::Instance().GetButtonDown(ActionID::GameAction::Zoom))
+	//{
+	//	DrawString(200, 100, "Save Config Triggered!", red);
+	//	InputManager::Instance().SaveConfig();
+	//}
 
-		int newKey{ InputManager::Instance().GetAnyPressedKey() }; // 入力されたキーを判別し保存する
 
-		// キーが押されているかつ変更モードを起動するキー以外が押されたら登録する
-		if (newKey != -1 && newKey != KEY_INPUT_C)
-		{
-			// 入力されたキーに変更
-			InputManager::Instance().SetBindingKey(ActionID::GameAction::Jump, newKey);
+	//// キーコンフィグを変更できるか確認する
+	//static bool isRebindingJumpKey{ false }; // 新しくキーを設定するかどうかを判定するフラグ(簡易的なテストなのでstatic)
+	//static bool isRebindingDashPad{ false }; // 新しくダッシュボタンをパッドで設定するかどうかを判定する
 
-			// 保存する
-			InputManager::Instance().SaveConfig();
+	//if (isRebindingJumpKey)
+	//{
+	//	// 変更モード中を表示
+	//	DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, ">> Press Any Key for [JUMP] <<", red);
 
-			// 変更モード終了
-			isRebindingJumpKey = false;
-		}
-	}
-	else
-	{
-		// 通常時の文字列表示
-		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "[C] key : Change 'Jump' Binding", white);
+	//	int newKey{ InputManager::Instance().GetAnyPressedKey() }; // 入力されたキーを判別し保存する
 
-		// Cキーで変更モードへ
-		if (CheckHitKey(KEY_INPUT_C))
-		{
-			isRebindingJumpKey = true;
-		}
-	}
+	//	// キーが押されているかつ変更モードを起動するキー以外が押されたら登録する
+	//	if (newKey != -1 && newKey != KEY_INPUT_C)
+	//	{
+	//		// 入力されたキーに変更
+	//		InputManager::Instance().SetBindingKey(ActionID::GameAction::Jump, newKey);
 
-	inputDebugDrawPos.y += lineHight;
+	//		// 保存する
+	//		InputManager::Instance().SaveConfig();
 
-	if (isRebindingDashPad)
-	{
-		// ボタン変更状態
-		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, ">> Press Any Pad Button for [Dash] <<", red);
-		
-		int newButton{ InputManager::Instance().GetAnyPressedButton() }; // 入力されたボタンを受け取る
+	//		// 変更モード終了
+	//		isRebindingJumpKey = false;
+	//	}
+	//}
+	//else
+	//{
+	//	// 通常時の文字列表示
+	//	DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "[C] key : Change 'Jump' Binding", white);
 
-		if (newButton != 0 && newButton != PadCode::TRIGGER_L) // 新しいボタンが押されているかつ左トリガー以外の場合
-		{
-			InputManager::Instance().SetBindingPad(ActionID::GameAction::Dash, newButton); // 新しいボタンを設定
+	//	// Cキーで変更モードへ
+	//	if (CheckHitKey(KEY_INPUT_C))
+	//	{
+	//		isRebindingJumpKey = true;
+	//	}
+	//}
 
-			InputManager::Instance().SaveConfig(); // 新しいボタンをセーブ
+	//inputDebugDrawPos.y += lineHight;
 
-			isRebindingDashPad = false; // キーコン更新を終了
-		}
-	}
-	else
-	{
-		// 通常状態
-		DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "[TriggerL] Button : Change 'Dash' Binding", white);
+	//if (isRebindingDashPad)
+	//{
+	//	// ボタン変更状態
+	//	DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, ">> Press Any Pad Button for [Dash] <<", red);
 
-		if ((InputManager::Instance().GetAnyPressedButton() & PadCode::TRIGGER_L) != 0) // テスト用にトリガーLボタンで変更できるようにする
-		{
-			isRebindingDashPad = true;
-		}
-	} 
+	//	int newButton{ InputManager::Instance().GetAnyPressedButton() }; // 入力されたボタンを受け取る
 
-	inputDebugDrawPos.y += lineHight;
+	//	if (newButton != 0 && newButton != PadCode::TRIGGER_L) // 新しいボタンが押されているかつ左トリガー以外の場合
+	//	{
+	//		InputManager::Instance().SetBindingPad(ActionID::GameAction::Dash, newButton); // 新しいボタンを設定
 
-	// モード変更
-	if (CheckHitKey(KEY_INPUT_M))
-	{
-		InputManager::Instance().SetInputMode(InputMode::Menu);
-	}
-	else if (CheckHitKey(KEY_INPUT_G))
-	{
-		InputManager::Instance().SetInputMode(InputMode::Game);
-	}
+	//		InputManager::Instance().SaveConfig(); // 新しいボタンをセーブ
 
-	// カメラ用Axisデバッグ
-	Vector2 camAxis{ InputManager::Instance().GetCameraAxis() }; // Axisを正しく取得できるかをテストする変数
-	DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "---- Camera Input ----", white);
-	inputDebugDrawPos.y += lineHight;
-	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Camera Axis: (%.3f, %.3f)", camAxis.x, camAxis.y);
+	//		isRebindingDashPad = false; // キーコン更新を終了
+	//	}
+	//}
+	//else
+	//{
+	//	// 通常状態
+	//	DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "[TriggerL] Button : Change 'Dash' Binding", white);
 
-	// マウス座標も表示しておく
-	inputDebugDrawPos.y += lineHight;
-	int mx;
-	int my;
-	GetMousePoint(&mx, &my);
-	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Raw MousePosition: (%.3f, %.3f)", mx, my);
+	//	if ((InputManager::Instance().GetAnyPressedButton() & PadCode::TRIGGER_L) != 0) // テスト用にトリガーLボタンで変更できるようにする
+	//	{
+	//		isRebindingDashPad = true;
+	//	}
+	//}
 
-	inputDebugDrawPos.y += lineHight;
+	//inputDebugDrawPos.y += lineHight;
 
-	// 各種設定値表示
-	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "TriggerDeadZone : %d", InputManager::Instance().GetTriggerDeadZone());
+	//// モード変更
+	//if (CheckHitKey(KEY_INPUT_M))
+	//{
+	//	InputManager::Instance().SetInputMode(InputMode::Menu);
+	//}
+	//else if (CheckHitKey(KEY_INPUT_G))
+	//{
+	//	InputManager::Instance().SetInputMode(InputMode::Game);
+	//}
 
-	inputDebugDrawPos.y += lineHight;
+	//// カメラ用Axisデバッグ
+	//Vector2 camAxis{ InputManager::Instance().GetCameraAxis() }; // Axisを正しく取得できるかをテストする変数
+	//DrawString(inputDebugDrawPos.x, inputDebugDrawPos.y, "---- Camera Input ----", white);
+	//inputDebugDrawPos.y += lineHight;
+	//DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Camera Axis: (%.3f, %.3f)", camAxis.x, camAxis.y);
 
-	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "RightStickDeadZone : %d", InputManager::Instance().GetStickDeadZone());
+	//// マウス座標も表示しておく
+	//inputDebugDrawPos.y += lineHight;
+	//int mx;
+	//int my;
+	//GetMousePoint(&mx, &my);
+	//DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "Raw MousePosition: (%.3f, %.3f)", mx, my);
 
-	inputDebugDrawPos.y += lineHight;
+	//inputDebugDrawPos.y += lineHight;
 
-	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "RightStickSensibility: %.3f", InputManager::Instance().GetStickSensibility());
-	inputDebugDrawPos.y += lineHight;
+	//// 各種設定値表示
+	//DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "TriggerDeadZone : %d", InputManager::Instance().GetTriggerDeadZone());
 
-	DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "RightStickSensibility: %.3f", InputManager::Instance().GetMouseSensibility());
+	//inputDebugDrawPos.y += lineHight;
+
+	//DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "RightStickDeadZone : %d", InputManager::Instance().GetStickDeadZone());
+
+	//inputDebugDrawPos.y += lineHight;
+
+	//DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "RightStickSensibility: %.3f", InputManager::Instance().GetStickSensibility());
+	//inputDebugDrawPos.y += lineHight;
+
+	//DrawFormatString(inputDebugDrawPos.x, inputDebugDrawPos.y, white, "RightStickSensibility: %.3f", InputManager::Instance().GetMouseSensibility());
+
 
 #endif // _DEBUG
 

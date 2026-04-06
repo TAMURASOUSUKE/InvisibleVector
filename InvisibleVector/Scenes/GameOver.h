@@ -14,6 +14,7 @@ public:
 private:
 	void Initialize() override; // 最初に行う処理
 	void Execute() override; // 実行部分
+	void FixedExecute() override; // 毎フレーム行う物理処理
 	SceneType Terminate() override; // 抜ける時の処理
 
 private:

@@ -234,6 +234,7 @@ void ResourceManager::DeleteAll()
 	ResourceUseScene deleteScenes[]
 	{
 		ResourceUseScene::Common,
+		ResourceUseScene::Debug,
 		ResourceUseScene::Title,
 		ResourceUseScene::Game,
 		ResourceUseScene::GameClaer,

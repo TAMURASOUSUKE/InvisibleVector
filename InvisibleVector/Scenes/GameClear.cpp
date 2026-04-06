@@ -33,6 +33,11 @@ void GameClear::Execute()
 	}
 }
 
+void GameClear::FixedExecute()
+{
+	objManager.FixedUpdate();
+}
+
 SceneType GameClear::Terminate()
 {
 
