@@ -4,7 +4,7 @@
 
 DebugPhysicsObject::DebugPhysicsObject(const Vector3& position, const Vector3& rotation, const Vector3& scale, const bool& isActive) : WorldObjectBase(position, rotation, scale, isActive)
 {
-	acceleration.y = -9.8f; // 重力値
+	acceleration.y = -500.0f; // 重力値
 }
 
 
@@ -31,4 +31,12 @@ void DebugPhysicsObject::Draw()
 void DebugPhysicsObject::OnHit(HitResult& result)
 {
 	position += result.pushVec;
+
+	if (result.tag == CollisionTag::Ground)
+    {
+        if (result.pushVec.y > 0.0f && velocity.y < 0.0f)
+        {
+            velocity.y = 0.0f;
+        }
+    }
 }

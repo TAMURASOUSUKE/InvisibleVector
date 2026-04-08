@@ -54,7 +54,7 @@ bool GameApp::Initialize()
 	// TODO:
 	// [EN] Move camera settings to Player or Camera class later. Currently using magic numbers for testing purporse.
 	// [JP] カメラに関してはプレイヤーで使うのであくまでこれはテスト用。プレイヤー実装時にカメラの設定をプレイヤーに移すのでいったんはマジックナンバーを許容する
-	SetCameraPositionAndTarget_UpVecY(VGet(0.0f, 150.0f, -100.0f), VGet(0.0f, 120.0f, 1.0f)); // カメラの位置と注視点の設定(位置途中視点はデフォルトです)
+	SetCameraPositionAndTarget_UpVecY(VGet(-100.0f, 150.0f, -100.0f), VGet(-100.0f, 100.0f, 1.0f)); // カメラの位置と注視点の設定(位置途中視点はデフォルトです)
 	// ------------------------------------------------------------------------
 
 	SceneManager::Instance().SetFirstScene(SceneType::Debug);
