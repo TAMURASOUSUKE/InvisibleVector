@@ -26,3 +26,11 @@ void ObjectFactory::CreateDebugGround(const Vector3& position, const Vector3& ro
 	std::unique_ptr<WorldObjectBase> obj{ std::make_unique<DebugGround>(position, rotation, scale, isActive) };
 	targetManager->RegisterWorld(std::move(obj));
 }
+
+void ObjectFactory::CreateDebugGround(const Vector3& position, const Vector3& rotation, const Vector3& scale, const bool& isActive, const Vector3& boxSize)
+{
+	std::unique_ptr<WorldObjectBase> obj{ std::make_unique<DebugGround>(position, rotation, scale, isActive, boxSize) };
+	targetManager->RegisterWorld(std::move(obj));
+}
+
+

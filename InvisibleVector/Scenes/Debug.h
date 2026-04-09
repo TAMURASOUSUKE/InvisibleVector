@@ -19,4 +19,13 @@ private:
 
 private:
 	ObjectManager objManager;
+
+	// デバッグ用
+	// デバッグカメラ
+	Vector3 cameraPos{ -80.0f, 150.0f, -200.0f };  // カメラの位置
+	Vector3 cameraTarget{ -80.0f, 50.0f, 100.0f };  // 注視点
+	float cameraYaw{ 0.0f };    // 水平回転（ラジアン）
+	float cameraPitch{ 0.0f };  // 垂直回転（ラジアン）
+	float cameraMoveSpeed{ 3.0f };
+	float cameraRotateSpeed{ 0.05f };
 };

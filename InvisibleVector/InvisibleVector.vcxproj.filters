@@ -44,6 +44,9 @@
     <Filter Include="ソース ファイル\CollisionManagement">
       <UniqueIdentifier>{a7cdb586-416e-4c55-98f8-fc0f1cf70db5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\PhysicsManagement">
+      <UniqueIdentifier>{f06268b4-f28c-4589-98c2-6dee91ba7502}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -114,6 +117,12 @@
     </ClCompile>
     <ClCompile Include="Scenes\Debug.cpp">
       <Filter>ソース ファイル\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Constant\PhysicsConstant.h">
+      <Filter>ソース ファイル\Constant</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManagement\PhysicsManager.cpp">
+      <Filter>ソース ファイル\PhysicsManagement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +230,12 @@
     </ClInclude>
     <ClInclude Include="Scenes\Debug.h">
       <Filter>ソース ファイル\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Constant\Physics.h">
+      <Filter>ソース ファイル\Constant</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsManagement\PhysicsManager.h">
+      <Filter>ソース ファイル\PhysicsManagement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

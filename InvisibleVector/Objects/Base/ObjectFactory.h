@@ -25,6 +25,7 @@ public:
 	// テスト用作成関数
 	static void CreateDebugObject(const Vector3& position, const Vector3& rotation, const Vector3& scale, const bool& isActive);
 	static void CreateDebugGround(const Vector3& position, const Vector3& rotation, const Vector3& scale, const bool& isActive);
+	static void CreateDebugGround(const Vector3& position, const Vector3& rotation, const Vector3& scale, const bool& isActive, const Vector3& boxSize);
 private:
 	static ObjectManager* targetManager; // どのシーンのオブジェクトマネージャーを使うかをバインドするための変数(参照に使うため生でよい)
 
