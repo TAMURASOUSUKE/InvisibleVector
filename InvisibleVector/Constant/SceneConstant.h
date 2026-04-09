@@ -6,6 +6,7 @@
 enum class SceneType
 {
 	None,
+	Debug,
 	Title,
 	Game,
 	GameOver,

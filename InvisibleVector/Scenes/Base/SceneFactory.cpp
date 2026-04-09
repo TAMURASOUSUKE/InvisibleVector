@@ -2,6 +2,7 @@
 #include "SceneFactory.h"
 
 // 具体をインクルード
+#include "../Scenes/Debug.h"
 #include "../Scenes/Title.h"
 #include "../Scenes/Game.h"
 #include "../Scenes/GameClear.h"
@@ -14,6 +15,7 @@ std::map<SceneType, std::function<std::unique_ptr<SceneBase>()>> SceneFactory::c
 void SceneFactory::Initlialize()
 {
 	// この関数を呼び出すことでmapに作る予定のシーンを登録していく
+	creationMap[SceneType::Debug] = []() { return std::make_unique<Debug>(); }; // デバッグシーンを作る
 	creationMap[SceneType::Title] = []() { return std::make_unique<Title>(); }; // タイトルを作る
 	creationMap[SceneType::Game] = []() { return std::make_unique<Game>(); }; // ゲームシーンを作る
 	creationMap[SceneType::GameOver] = []() { return std::make_unique<GameOver>(); }; // ゲームオーバーシーンを作る

@@ -25,9 +25,10 @@ public:
 
 	void SetFirstScene(SceneType _type); // Å‰‚ÌƒV[ƒ“‚ğİ’è‚·‚é•â•ŠÖ”
 
-	void Main();
+	void Update();
+	void FixedUpdate();
 	void Draw();
-
+	
 private:
 	SceneManager()
 	{

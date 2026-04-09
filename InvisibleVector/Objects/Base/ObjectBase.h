@@ -39,8 +39,14 @@ public:
 	/// </summary>
 	void Destroy() { isActive = false; }
 
+	/// <summary>
+	/// [EN] Set the survival flag.　[JP] 生存フラグを設定する
+	/// </summary>
+	/// <param name="active">[EN] Survival flag [JP] 生存フラグ</param>
+	void SetActive(bool active) { isActive = active; }
 protected:
 	ObjectBase(RenderLayer layer) : layer{layer}{}
+	ObjectBase(bool isActive, RenderLayer layer) : layer{layer}{}
 
 protected:
 	RenderLayer layer{RenderLayer::None};

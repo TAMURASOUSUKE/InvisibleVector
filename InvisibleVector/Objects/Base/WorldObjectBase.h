@@ -15,17 +15,18 @@ public:
 	/// </summary>
 	virtual ~WorldObjectBase() = default;
 
-	/// <summary>
-	/// [EN] Initialize position constructor [JP] 位置を初期化するコンストラクタ
-	/// </summary>
-	/// <param name="position">[EN] Initialize position [JP 初期化したい位置</param>
+
+	// コンストラクタ群
 	WorldObjectBase(const Vector3& position) : position{position} , ObjectBase(RenderLayer::World){}
+	WorldObjectBase(const Vector3& position, const bool& isActive) : position{position} , ObjectBase(isActive ,RenderLayer::World){}
+	WorldObjectBase(const Vector3& position, const Vector3& rotation, const bool& isActive) : position{ position }, rotation{ rotation }, ObjectBase(isActive ,RenderLayer::World) {}
+	WorldObjectBase(const Vector3& position, const Vector3& rotation, const Vector3& scale, const bool& isActive) : position{ position }, rotation{ rotation }, scale{scale}, ObjectBase(isActive ,RenderLayer::World) {}
 	
 	/// <summary>
 	/// Physical Update. [JP] 物理的な更新を行う
 	/// </summary>
 	/// <param name="deltaTime">[EN] delta time [JP] 毎フレームごとに計算されるdelta time</param>
-	 void FixedUpdate();
+	virtual void FixedUpdate();
 
 	/// <summary>
 	/// Get position [JP] 位置のGetter

@@ -141,15 +141,20 @@
   <ItemGroup>
     <ClCompile Include="CollisionManagement\CollisionManager.cpp" />
     <ClCompile Include="CollisionManagement\ColliderRebuilder.cpp" />
+    <ClCompile Include="Constant\PhysicsConstant.h" />
     <ClCompile Include="GameApp\GameApp.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Objects\Base\ObjectFactory.cpp" />
     <ClCompile Include="Objects\Base\ObjectManager.cpp" />
     <ClCompile Include="Objects\Base\WorldObjectBase.cpp" />
+    <ClCompile Include="Objects\DebugGround.cpp" />
+    <ClCompile Include="Objects\DebugPhysicsObject.cpp" />
+    <ClCompile Include="PhysicsManagement\PhysicsManager.cpp" />
     <ClCompile Include="ResourceManagement\ResourceDataBase.cpp" />
     <ClCompile Include="ResourceManagement\ResourceManager.cpp" />
     <ClCompile Include="Scenes\Base\SceneFactory.cpp" />
     <ClCompile Include="Scenes\Base\SceneManager.cpp" />
+    <ClCompile Include="Scenes\Debug.cpp" />
     <ClCompile Include="Scenes\Game.cpp" />
     <ClCompile Include="Scenes\GameClear.cpp" />
     <ClCompile Include="Scenes\GameOver.cpp" />
@@ -166,6 +171,7 @@
     <ClInclude Include="Constant\Collider.h" />
     <ClInclude Include="Constant\CollisionConstant.h" />
     <ClInclude Include="Constant\GameConstant.h" />
+    <ClInclude Include="Constant\Physics.h" />
     <ClInclude Include="Constant\ResourceConstant.h" />
     <ClInclude Include="Constant\ResourceData.h" />
     <ClInclude Include="Constant\SystemConstant.h" />
@@ -178,11 +184,15 @@
     <ClInclude Include="Objects\Base\ObjectManager.h" />
     <ClInclude Include="Objects\Base\UIObjectBase.h" />
     <ClInclude Include="Objects\Base\WorldObjectBase.h" />
+    <ClInclude Include="Objects\DebugGround.h" />
+    <ClInclude Include="Objects\DebugPhysicsObject.h" />
+    <ClInclude Include="PhysicsManagement\PhysicsManager.h" />
     <ClInclude Include="ResourceManagement\ResourceDataBase.h" />
     <ClInclude Include="ResourceManagement\ResourceManager.h" />
     <ClInclude Include="Scenes\Base\SceneBase.h" />
     <ClInclude Include="Scenes\Base\SceneFactory.h" />
     <ClInclude Include="Scenes\Base\SceneManager.h" />
+    <ClInclude Include="Scenes\Debug.h" />
     <ClInclude Include="Scenes\Game.h" />
     <ClInclude Include="Scenes\GameClear.h" />
     <ClInclude Include="Scenes\GameOver.h" />

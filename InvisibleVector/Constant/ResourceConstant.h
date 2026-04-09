@@ -5,6 +5,7 @@
 enum class ResourceUseScene
 {
 	Common, // 汎用
+	Debug, // デバッグシーン
 	Title, // タイトル
 	Game, // ゲームシーン
 	GameOver, // ゲームオーバー

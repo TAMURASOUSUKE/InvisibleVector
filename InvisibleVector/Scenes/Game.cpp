@@ -31,6 +31,11 @@ void Game::Execute()
 	currentStep = SceneStep::Terminate;
 }
 
+void Game::FixedExecute()
+{
+	objManager.FixedUpdate();
+}
+
 SceneType Game::Terminate()
 {
 

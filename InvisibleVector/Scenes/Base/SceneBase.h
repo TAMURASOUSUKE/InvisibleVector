@@ -20,7 +20,7 @@ public:
 	SceneBase() = default;
 	virtual ~SceneBase() = default;
 
-	SceneType Main()
+	SceneType Update()
 	{
 		switch (currentStep)
 		{
@@ -39,6 +39,15 @@ public:
 		return GetType();
 	}
 
+	// そのシーンのExecute時に回る物理処理
+	void FixedUpdate()
+	{
+		if (currentStep == SceneStep::Execute)
+		{
+			FixedExecute();
+		}
+	}
+
 	virtual void Draw() = 0;
 
 	virtual SceneType GetType() = 0; // シーンのタイプを返す関数
@@ -46,6 +55,7 @@ public:
 protected:
 	virtual void Initialize() = 0; // シーンが切り替わった際最初に呼び出される処理
 	virtual void Execute() = 0; // シーンが実行中繰り返される処理
+	virtual void FixedExecute() = 0; // シーン実行中に繰り返される物理処理
 	virtual SceneType Terminate() = 0; // シーンを終了する際に出される処理
 
 protected:

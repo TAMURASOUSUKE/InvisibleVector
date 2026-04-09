@@ -61,6 +61,13 @@ struct Vector3Base
 		return Vector3Base{ 0, 0, 0 };
 	}
 
+	// 正規化したベクトルを返す
+	static Vector3Base Normalized(Vector3Base<float> vec)
+	{
+		vec.Normalize();
+		return vec;
+	}
+
 	/// <summary>
 	/// [EN] Calculate Length of vector. [JP] ベクトルの長さを作る
 	/// </summary>
@@ -275,6 +282,26 @@ struct Vector3Base
 		}
 
 		return *this;
+	}
+
+	bool operator < (const ValueType& value)
+	{
+		return x < value && y < value && z < value;
+	}
+
+	bool operator <= (const ValueType& value)
+	{
+		return x <= value && y <= value && z <= value;
+	}
+
+	bool operator > (const ValueType& value)
+	{
+		return x > value && y > value && z > value;
+	}
+
+	bool operator >= (const ValueType& value)
+	{
+		return x >= value && y >= value && z >= value;
 	}
 
 	/// <summary>

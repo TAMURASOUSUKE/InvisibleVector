@@ -32,6 +32,12 @@ void Title::Execute()
 }
 
 
+void Title::FixedExecute()
+{
+	objManager.FixedUpdate();
+}
+
+
 SceneType Title::Terminate()
 {
 

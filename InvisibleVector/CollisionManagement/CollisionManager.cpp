@@ -975,6 +975,7 @@ bool CollisionManager::RayCast(const Ray& ray, RayCastHit& outHit, CollisionTag 
 			hitThis = IntersectRaySphere(ray, *static_cast<SphereCollider*>(collider) , hitDistance);
 			break;
 		case ColliderType::Box:
+		{
 			// Ray‚ÆBox‚Ì”»’è
 			BoxCollider* box{ static_cast<BoxCollider*>(collider) };
 			// ‰ñ“]‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
@@ -990,7 +991,7 @@ bool CollisionManager::RayCast(const Ray& ray, RayCastHit& outHit, CollisionTag 
 			}
 
 			break;
-
+		}
 		case ColliderType::Capsule:
 			// Ray‚ÆƒJƒvƒZƒ‹‚Ì”»’è
 			hitThis = IntersectRayCapsule(ray, *static_cast<CapsuleCollider*>(collider), hitDistance);

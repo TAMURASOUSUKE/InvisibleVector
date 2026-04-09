@@ -8,16 +8,24 @@ void SceneManager::SetFirstScene(SceneType _type)
 }
 
 
-void SceneManager::Main()
+void SceneManager::Update()
 {
 	if (currentScene == nullptr) return;
 
 	// 通常時の更新
-	SceneType type{ currentScene->Main() }; // 各処理を実行しつつそのフレームのSceneTypeを取得
+	SceneType type{ currentScene->Update() }; // 各処理を実行しつつそのフレームのSceneTypeを取得
+
+
 	if (type != currentScene->GetType())
 	{
 		currentScene = SceneFactory::CreateScene(type); // 新しいシーンを作る
 	}
+}
+
+void SceneManager::FixedUpdate()
+{
+	// 物理更新
+	currentScene->FixedUpdate();
 }
 
 void SceneManager::Draw()

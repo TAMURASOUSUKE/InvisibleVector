@@ -35,6 +35,11 @@ void GameOver::Execute()
 #endif // _DEBUG
 }
 
+void GameOver::FixedExecute()
+{
+	objManager.FixedUpdate();
+}
+
 SceneType GameOver::Terminate()
 {
 
